@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Message Details</h1>
+
+<div>
+  <span>Email: {{message.email}}</span>
+  <p>Phone Number: {{message.phoneNumber}}</p>
+  <P>Budget: {{message.budget}}</P>
+  <P>Guest Count: {{message.guestCount}}</P>
+  <P>Event Type: {{message.eventType}}</P>
+  <p>Event Date: {{message.eventDate}}</p>
+  <p>Description: {{message.description}}</p>
+  <p>Sender: {{message.sender}}</p>
+</div>
+<div class="card-action">
+  <a href="{% url 'message_update' message.id %}">Edit</a>
+  <a href="{% url 'message_delete' message.id %}">Delete</a>
+</div>
+
+{% endblock %}

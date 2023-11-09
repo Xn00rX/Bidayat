@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Messages</h3>
+
+{% for message in messages_list %}
+<a href="{% url 'message_detail' message.id %}">
+<div class="message">
+  <span>Email: {{message.email}}</span>
+  <p>Phone Number: {{message.phoneNumber}}</p>
+  <P>Budget: {{message.budget}}</P>
+  <P>Guest Count: {{message.guestCount}}</P>
+  <P>Event Type: {{message.eventType}}</P>
+  <p>Event Date: {{message.eventDate}}</p>
+  <p>Description: {{message.description}}</p>
+  <p>Sender: {{message.sender}}</p>
+</div>
+</a>
+{% endfor %}
+{% endblock %}
