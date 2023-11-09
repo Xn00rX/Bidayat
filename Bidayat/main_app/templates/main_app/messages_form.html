@@ -2,18 +2,70 @@
 
 {% block content %}
 
+
 {% if object %}
 <h1>Edit Message</h1>
 {% else %}
 <h1>Send Message</h1>
 {% endif %}
 
-<form action="" method="post">
-{% csrf_token %}
-<table>
-  {{form.as_table}}
-</table>
-<input type="submit" value="Send">
-</form>
+<div class="row">
+  <form class="col s12" action="" method="post">
+    {% csrf_token %}
+    <div class="row">
+      <div class="input-field col s6">
+        {{form.email}}
+        <label for="email">Email</label>
+      </div>
+      <div class="input-field col s6">
+        {{form.phoneNumber}}
+        <label for="phoneNumber">Phone Number</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        {{form.budget}}
+        <label for="budget">Budget</label>
+      </div>
+      <div class="input-field col s6">
+        {{form.guestCount}}
+        <label for="guestCount">GuestCount</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+        {{form.eventType}}
+        <label for="eventType">Event Type</label>
+      </div>
+      <div class="input-field col s6">
+        {{form.eventDate}}
+        <label for="eventDate">Event Date</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        {{form.description}}
+        <label for="description">Description</label>
+      </div>
+    </div>
+    <input type="submit" value="Send" class="btn">
+  </form>
+</div>
+
+
+
+
+<script>
+  let dateEle = document.getElementById('id_eventDate')
+  M.Datepicker.init(dateEle,{
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  })
+
+
+</script>
+
 
 {% endblock %}

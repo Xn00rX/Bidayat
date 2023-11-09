@@ -1,20 +1,63 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Messages</h3>
+<h3>Inbox</h3>
+<!-- <table>
+  <thead>
+    <tr>
+        <th>Sender</th>
+        <th>Email</th>
+        <th>Event Type</th>
+        <th></th>
 
+    </tr>
+  </thead>
+  {% for message in messages_list %}
+  <tbody>
+    <tr>
+      <td>{{message.sender}}</td>
+      <td>{{message.email}}</td>
+      <td>{{message.eventType}}</td>
+      <td><a href="{% url 'message_detail' message.id %}">More Details</a></td>
+    </tr>
+  </tbody>
+  {% endfor %}
+</table> -->
 {% for message in messages_list %}
-<a href="{% url 'message_detail' message.id %}">
-<div class="message">
-  <span>Email: {{message.email}}</span>
-  <p>Phone Number: {{message.phoneNumber}}</p>
-  <P>Budget: {{message.budget}}</P>
-  <P>Guest Count: {{message.guestCount}}</P>
-  <P>Event Type: {{message.eventType}}</P>
-  <p>Event Date: {{message.eventDate}}</p>
-  <p>Description: {{message.description}}</p>
-  <p>Sender: {{message.sender}}</p>
+<div class="col s12 m8 offset-m2 l6 offset-l3">
+  <div class="card-panel grey lighten-5 z-depth-1">
+    <div class="row valign-wrapper">
+      <div class="col s2">
+        {% load static %}
+        <img src="{%  static 'images/user.jpg' %}" class="circle responsive-img"> <!-- notice the "circle" class -->
+      </div>
+      <div class="col s10">
+        <table>
+          <thead>
+            <tr>
+                <th>Sender</th>
+                <th>Email</th>
+                <th>Event Type</th>
+                <th></th>
+        
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{message.sender}}</td>
+              <td>{{message.email}}</td>
+              <td>{{message.eventType}}</td>
+              <td><a href="{% url 'message_detail' message.id %}" class="btn-floating pulse"><i class="material-icons">description</i></a>
+              </a></td>
+            </tr>
+          </tbody>
+        </table>      
+
+        
+      </div>
+    </div>
+  </div>
 </div>
-</a>
 {% endfor %}
+
 {% endblock %}

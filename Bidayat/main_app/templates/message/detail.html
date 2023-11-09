@@ -15,8 +15,11 @@
   <p>Sender: {{message.sender}}</p>
 </div>
 <div class="card-action">
-  <a href="{% url 'message_update' message.id %}">Edit</a>
-  <a href="{% url 'message_delete' message.id %}">Delete</a>
+  <a href="{% url 'message_update' message.id %}" class="btn-floating pulse"><i class="material-icons">edit</i></a>
+  <a href="{% url 'message_delete' message.id %}" class="btn-floating pulse"><i class="material-icons">delete</i></a>
 </div>
+
+
+
 
 {% endblock %}
