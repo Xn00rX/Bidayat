@@ -58,8 +58,8 @@ def about(request):
   return render(request, 'about.html', {'categories': categories})
 
 @login_required
-def works_category(request):
-  works = Work.objects.filter(category=request.category_id)
+def works_category(request, category_id):
+  works = Work.objects.filter(category=category_id)
   categories = Category.objects.all()
   return render(request, 'works/categoryworks.html', {'works': works, 'categories': categories})
 
