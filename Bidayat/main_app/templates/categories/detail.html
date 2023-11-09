@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> {{ category.name }} </h1>
+
+
+    <div>
+      {% load static %}
+      <img width="50%" src="{% static category.image|cut:'main_app/static/' %}" />
+    </div>
+
+
+{% endblock %}
