@@ -10,9 +10,25 @@
 <body>
   <header>
     <nav>
-      <ul>
-        <li><a href="{% url 'home' %}">Cat Collector</a></li>
-          <li><a href="{% url 'about' %}">About</a></li>
+      <ul class="right">
+        <li><a href="{% url 'about'  %}">About</a></li>
+
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'user_detail' user.id %}">Profile</a></li>
+        <li><a href="{% url 'logout' %}"> Log Out </a></li>
+      
+  
+        Hi {{ user.username }}
+        
+
+        {% else %}
+
+        <li> <a href="{%  url 'login' %}"> Login </a></li>          
+        <li> <a href="{%  url 'signup' %}"> Sign Up </a></li>          
+
+
+        {% endif %}
+
       </ul>
     </nav>
   </header>

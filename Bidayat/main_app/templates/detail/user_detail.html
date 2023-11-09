@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>User Profile</h2>
+
+  {% if profile %}
+    <p>Username: {{ profile.user.username }}</p>
+    <p>Email: {{ profile.user.email }}</p>
+    <p> User  Type: {{profile.type}} </p>
+
+    <div>
+
+      {%load static %}
+      <img width="100px" height="100px" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
+      </div>
+
+    <a href="" > Edit </a>
+
+
+
+
+  {% else %}
+    <p>No profile found for this user.</p>
+  {% endif %}
+{% endblock %}
