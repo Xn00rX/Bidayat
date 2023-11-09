@@ -11,12 +11,26 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
 from .forms import CreateUserForm , ProfileSignUp
+from django.contrib.auth.models import User
+
+
 
 # Create your views here.
 
 
 def home(request):
   return render(request,'index.html')
+
+
+def user_detail(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+        profile = Profile.objects.get(user=user)
+        return render(request, 'detail/user_detail.html', {'profile': profile})
+    except User.DoesNotExist or Profile.DoesNotExist:
+        return render(request, 'detail/user_not_found.html')
+
+
 
 def about(request):
   return render(request, 'about.html')

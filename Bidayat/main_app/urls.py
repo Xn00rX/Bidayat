@@ -7,12 +7,12 @@ from django.contrib.auth import views as auth_views
 urlpatterns=[
   path('',views.home, name='home'),
   
-  path('about/',views.about,name='about'),
   
-  
-
+  path('detail/user_detail/<int:user_id>/', views.user_detail, name='user_detail'),
+  path('about/',views.about,name='about'),  
   path('accounts/signup/',views.signup,name='signup'),
-  
   path('change_password/', auth_views.PasswordChangeView.as_view(), name='password_change'),
   path('change_password/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+  
+  
 ]
