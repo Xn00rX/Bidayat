@@ -50,12 +50,10 @@ class CategoryDelete(DeleteView):
 
 
 def home(request):
-  categories = Category.objects.all()
-  return render(request,'index.html', {'categories': categories})
+  return render(request,'index.html')
 
 def about(request):
-  categories = Category.objects.all()
-  return render(request, 'about.html', {'categories': categories})
+  return render(request, 'about.html')
 
 @login_required
 def works_category(request, category_id):
@@ -67,15 +65,13 @@ def works_category(request, category_id):
 @login_required
 def works_index(request):
   works = Work.objects.all()
-  categories = Category.objects.all()
-  return render(request, 'works/index.html', {'works': works, 'categories': categories})
+  return render(request, 'works/index.html', {'works': works})
 
 
 @login_required
 def works_detail(request, work_id):
   work = Work.objects.get(id=work_id)
-  categories = Category.objects.all()
-  return render(request, 'works/detail.html', {'work': work, 'categories': categories})
+  return render(request, 'works/detail.html', {'work': work})
 
 
 
