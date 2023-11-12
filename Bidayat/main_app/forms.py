@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
-from .models import Profile 
+from .models import Profile,Messages
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -17,3 +17,7 @@ class ProfileSignUp(ModelForm):
         fields = ['image','type','service']
         
         
+class MessageForm(ModelForm):
+    class Meta:
+        model = Messages
+        fields = ['email','phoneNumber','budget','guestCount','eventType','eventDate','description']

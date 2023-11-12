@@ -1,20 +1,15 @@
-from django.shortcuts import render, redirect
+from django.forms.models import BaseModelForm
 from django.http import HttpResponse
-
-from django.views.generic.edit import CreateView , UpdateView, DeleteView
-from django.views.generic import ListView,DetailView
-
+from django.shortcuts import render,redirect
+from .models import Messages,User
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
-from .forms import CreateUserForm , ProfileSignUp
-from django.contrib.auth.models import User
-
-
-
+from .forms import CreateUserForm , ProfileSignUp,MessageForm
 # Create your views here.
 
 
@@ -35,6 +30,38 @@ def user_detail(request, user_id):
 def about(request):
   return render(request, 'about.html')
 
+class MessageList(ListView):
+  model = Messages
+
+class MessageCreate(CreateView):
+  model = Messages
+  fields = ['email','phoneNumber','budget','guestCount','eventType','eventDate','description']
+
+  def form_valid(self,form):
+    form.instance.sender = self.request.user
+    return super().form_valid(form)
+
+
+# def Message_Create(request,user_id):
+#   form = MessageForm(request.POST)
+#   if form.is_valid():
+#     new_message = form.save(commit=False)
+#     new_message.
+
+
+class MessageUpdate(UpdateView):
+  model = Messages
+  fields = ['email','phoneNumber','budget','guestCount','eventType','eventDate','description']
+
+
+def Message_detail(request,message_id):
+  #SELECT * FROM 'main_app_cat' WHERE id = cat_id
+  message = Messages.objects.get(id=message_id)
+  return render(request, 'message/detail.html',{'message': message})
+
+class MessageDelete(DeleteView):
+  model = Messages
+  success_url='/messages/'
 
 
 

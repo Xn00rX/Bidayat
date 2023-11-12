@@ -1,0 +1,22 @@
+
+
+.message{
+  border-style: solid;
+  color: black;
+}
+
+body{
+  background-color: antiquewhite;
+}
+
+nav{
+  background-color: rgb(112, 137, 137);
+}
+
+.tbl{
+  text-decoration: none !important;
+}
+
+label{
+  color: blue;
+}
