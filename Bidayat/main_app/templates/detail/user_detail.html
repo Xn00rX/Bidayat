@@ -14,7 +14,7 @@
       <img width="100px" height="100px" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
       </div>
 
-    <a href="" > Edit </a>
+      <a href="{% url 'user_update' user.id %}">Edit</a>
     <a href="{% url 'message_create' %}"><button>Message</button></a>
 
 
