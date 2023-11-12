@@ -9,7 +9,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
-from .forms import CreateUserForm , ProfileSignUp
+from .forms import CreateUserForm , ProfileSignUp,MessageForm
 # Create your views here.
 
 
@@ -40,6 +40,14 @@ class MessageCreate(CreateView):
   def form_valid(self,form):
     form.instance.sender = self.request.user
     return super().form_valid(form)
+
+
+# def Message_Create(request,user_id):
+#   form = MessageForm(request.POST)
+#   if form.is_valid():
+#     new_message = form.save(commit=False)
+#     new_message.
+
 
 class MessageUpdate(UpdateView):
   model = Messages
