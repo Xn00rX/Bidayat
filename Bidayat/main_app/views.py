@@ -1,8 +1,9 @@
-from django.forms.models import BaseModelForm
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.shortcuts import render,redirect
+from .models import Category, Work
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.forms.models import BaseModelForm
 from .models import Messages,User
-from django.views.generic.edit import CreateView,UpdateView,DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -11,6 +12,44 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
 from .forms import CreateUserForm , ProfileSignUp,MessageForm
 # Create your views here.
+
+class WorkCreate(LoginRequiredMixin, CreateView):
+  model = Work
+  fields = ['title', 'description', 'worktype', 'category']
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+
+class WorkUpdate(LoginRequiredMixin, UpdateView):
+  model = Work
+  fields = ['title', 'description', 'worktype', 'category']
+
+class WorkDelete(LoginRequiredMixin, DeleteView):
+  model = Work
+  success_url = '/works/'
+
+
+
+  
+
+class CategoryCreate(CreateView):
+  model = Category
+  fields = ['name', 'image']
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
+
+
+
+class CategoryUpdate(UpdateView):
+  model = Category
+  fields = ['name', 'image']
+
+
+
+class CategoryDelete(DeleteView):
+  model = Category
 
 
 def home(request):
@@ -29,6 +68,54 @@ def user_detail(request, user_id):
 
 def about(request):
   return render(request, 'about.html')
+
+@login_required
+def works_category(request, category_id):
+  works = Work.objects.filter(category=category_id)
+  categories = Category.objects.all()
+  return render(request, 'works/categoryworks.html', {'works': works, 'categories': categories})
+
+
+@login_required
+def works_index(request):
+  works = Work.objects.all()
+  return render(request, 'works/index.html', {'works': works})
+
+
+@login_required
+def works_detail(request, work_id):
+  work = Work.objects.get(id=work_id)
+  return render(request, 'works/detail.html', {'work': work})
+
+
+
+def categories_index(request):
+  categories = Category.objects.all()
+  return render(request, 'categories/index.html', {'categories': categories})
+
+def categories_detail(request, category_id):
+  categories = Category.objects.all()
+  category = Category.objects.get(id=category_id)
+  return render(request, 'categories/detail.html',{'category': category, 'categories': categories})
+
+# def categories_base(request):
+#   categories = Category.objects.all()
+#   return render(request, 'base.html', {'categories': categories})
+
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      login(request, user)
+      return redirect('index')
+    else:
+      error_message = 'Invalid Signup Attempt', form.error_messages
+
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)
 
 class MessageList(ListView):
   model = Messages
