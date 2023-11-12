@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> {{ work.title }} </h1>
+
+
+    <div>
+    <p>Description: {{ work.description }}</p>
+    <p> Type: {{ work.worktype }} </p>
+    <p> Category: {{ work.category }} </p>
+
+
+  </div>
+
+  <div>
+    <a href="{% url 'works_update' work.id %}">Edit</a>
+    <a href="{% url 'works_delete' work.id %}">Delete</a>
+
+
+  </div>
+
+{% endblock %}

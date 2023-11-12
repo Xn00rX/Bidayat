@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> Categories </h1>
+
+{% for category in categories %}
+
+  
+  
+    <div>
+      
+    <span class="card-title">{{ category.name }}</span>
+    </div>
+
+    <div>
+      {% load static %}
+      <img width="100px" height="100px" src="{% static category.image|cut:'main_app/static/' %}" />
+    </div>
+
+
+{% endfor %}
+
+
+{% endblock %}

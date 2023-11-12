@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 
 {% block content %}
@@ -27,3 +28,22 @@ let serviceFle = document.getElementById('id_service')
 M.FormSelect.init(serviceFle)
 </script>
 {% endblock %}
+=======
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Signup</h1>
+
+{% if error_message %}
+<p class="red-text"> {{ error_message }} </p>
+{% endif %}
+
+<form method="POST" action="{% url 'signup' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" class="btn" value="Signup">
+</form>
+
+{% endblock %}
+>>>>>>> 075501dcf27315d6aa329635204c234c5b9adecd

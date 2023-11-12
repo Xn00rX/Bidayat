@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main_app.context_processors.add_variable_to_context',
             ],
         },
     },
@@ -140,3 +141,10 @@ EMAIL_FILE_PATH = BASE_DIR / 'emails'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# DATABASEHOST= flora.db.elephantsql.com
+# DATABASEPORT= 5432
+# DATABASEUSER= yucwsywx
+# DATABASEPASSWORD= 0FozxUetrK8Ap8Zlu8OH1IOJQ3oC83m3
+# DATABASENAME= yucwsywx
