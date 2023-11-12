@@ -40,7 +40,6 @@ class MessageCreate(CreateView):
   def form_valid(self,form):
     form.instance.sender = self.request.user
     return super().form_valid(form)
-  
 
 class MessageUpdate(UpdateView):
   model = Messages
