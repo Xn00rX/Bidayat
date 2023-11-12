@@ -3,6 +3,10 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 
 
 urlpatterns=[
@@ -22,6 +26,9 @@ urlpatterns=[
   path('accounts/signup/',views.signup,name='signup'),
   path('change_password/', auth_views.PasswordChangeView.as_view(), name='password_change'),
   path('change_password/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
-  
+  path('users/<int:user_id>/update/', views.user_update , name='user_update' ),
   
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

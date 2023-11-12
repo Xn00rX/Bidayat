@@ -16,7 +16,21 @@ class ProfileSignUp(ModelForm):
         model = Profile
         fields = ['image','type','service']
         
-        
+  
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = '__all__'  
+
+
+
+       
 class MessageForm(ModelForm):
     class Meta:
         model = Messages
