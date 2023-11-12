@@ -1,34 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% load static %}
-
-<img width="100px" height="100px" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
-
-
-</div>
 
 <form method="POST" action="{% url 'user_update' user.id %}" enctype="multipart/form-data">
   {% csrf_token %}
   {{ user_form.as_p }}
-  {{ profile_form.type }}
-  {{ profile_form.service }}
+  {{ profile_form.as_p }}
 
-  <img width="100px" height="100px" src="https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_square.jpg" alt=""/>
-
-  
-  <div>
-
-
-
-    
   <input type="submit" class="btn" value="Update">
-  <script>
-    let typeFile = document.getElementById('id_type')
-    M.FormSelect.init(typeFile)
-    let serviceFile = document.getElementById('id_service')
-    M.FormSelect.init(serviceFile)
-  </script>
 </form>
-
+<script>
+  
+  let typeFile = document.getElementById('id_type')
+  M.FormSelect.init(typeFile)
+  let serviceFile = document.getElementById('id_service')
+  M.FormSelect.init(serviceFile)
+  </script>
 {% endblock %}

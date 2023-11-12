@@ -8,13 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-# * means to import everything from the following module
-
-from .models import *      
-
-
-
+from .models import  *
 from .forms import *
 # Create your views here.
 
@@ -95,7 +89,6 @@ def signup(request):
     context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
-
 def user_update(request, user_id):
     user = User.objects.get(id=user_id)
     profile = Profile.objects.get(user=user)
@@ -107,7 +100,7 @@ def user_update(request, user_id):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('user_detail', user_id=user.id )
+            return redirect('user_detail', user_id=user.id)
     else:
         user_form = UserForm(instance=user)
         profile_form = ProfileForm(instance=profile)
