@@ -2,16 +2,28 @@
 
 {% block content %}
 
-<h1>Signup</h1>
+<h1>Sign Up</h1>
 
 {% if error_message %}
-<p class="red-text"> {{ error_message }} </p>
+<p class="red_text">{{error_message}} </p>
 {% endif %}
 
-<form method="POST" action="{% url 'signup' %}">
+<form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST">
   {% csrf_token %}
+  
+
   {{ form.as_p }}
+
+
+  {{ profileForm.as_p }}
+
   <input type="submit" class="btn" value="Signup">
 </form>
-
+<script>
+  
+let typeFle = document.getElementById('id_type')
+M.FormSelect.init(typeFle)
+let serviceFle = document.getElementById('id_service')
+M.FormSelect.init(serviceFle)
+</script>
 {% endblock %}
