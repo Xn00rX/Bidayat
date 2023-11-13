@@ -11,6 +11,10 @@ from django.conf.urls.static import static
 
 urlpatterns=[
   path('',views.home, name='home'),
+  
+  path('choice/',views.choices, name='popup'),
+  
+  
   path('about/',views.about,name='about'),
   path('categories/', views.categories_index, name='index'),
   path('categories/<int:category_id>', views.categories_detail, name='categorydetail'),
@@ -36,7 +40,12 @@ urlpatterns=[
   path('users/<int:user_id>/update/', views.user_update , name='user_update' ),
   path('detail/user_detail/<int:user_id>/', views.user_detail, name='user_detail'),
   path('about/',views.about,name='about'),  
-  path('accounts/signup/',views.signup,name='signup'),
+  
+
+  path('accounts/customer/signup/',views.customerSignup, name='customer'),
+  path('accounts/vendor/signup/',views.vendorSignup, name='vendor'),
+  
+  
   path('change_password/', auth_views.PasswordChangeView.as_view(), name='password_change'),
   path('change_password/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
   

@@ -15,6 +15,17 @@ class ProfileSignUp(ModelForm):
     class Meta:
         model = Profile
         fields = ['image','type','service']
+
+class CustomerSignUp(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+        
+        
+class VendorSignUp(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image','service']
         
   
 

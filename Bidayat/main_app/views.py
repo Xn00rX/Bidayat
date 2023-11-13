@@ -72,6 +72,13 @@ def home(request):
   return render(request,'index.html')
 
 
+def choices(request):
+  return render(request,'registration/popup.html')
+
+
+
+
+
 def user_detail(request, user_id):
     try:
         user = User.objects.get(id=user_id)
@@ -118,20 +125,7 @@ def categories_detail(request, category_id):
 #   categories = Category.objects.all()
 #   return render(request, 'base.html', {'categories': categories})
 
-def signup(request):
-  error_message = ''
-  if request.method == 'POST':
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-      user = form.save()
-      login(request, user)
-      return redirect('index')
-    else:
-      error_message = 'Invalid Signup Attempt', form.error_messages
 
-  form = UserCreationForm()
-  context = {'form': form, 'error_message': error_message}
-  return render(request, 'registration/signup.html', context)
 
 class MessageList(ListView):
   model = Messages
@@ -184,8 +178,8 @@ def signup(request):
             return redirect('/')
         else:
             error_message = 'Invalid Signup'
-            print(form.errors)  # Print form errors to console
-            print(profileForm.errors)  # Print profileForm errors to console
+            print(form.errors) 
+            print(profileForm.errors) 
 
     form = CreateUserForm()
     profileForm = ProfileSignUp()
@@ -193,7 +187,62 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
-from django.core.files.storage import FileSystemStorage
+def customerSignup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        profileForm = CustomerSignUp(request.POST, request.FILES)
+        if form.is_valid() and profileForm.is_valid():
+            user = form.save()
+            profile = profileForm.save(commit=False)
+            profile.user = user
+            profile.type = 'C'
+            profile.save()
+            login(request, user)
+            return redirect('/')
+        else:
+            error_message = 'Invalid Signup'
+            print(form.errors)  
+            print(profileForm.errors)  
+
+    form = CreateUserForm()
+    profileForm = CustomerSignUp()
+    context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
+    return render(request, 'registration/customer.html', context)
+
+
+
+
+def vendorSignup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        profileForm = VendorSignUp (request.POST, request.FILES)
+        if form.is_valid() and profileForm.is_valid():
+            user = form.save()
+            profile = profileForm.save(commit=False)
+            profile.user = user
+            profile.type = 'V'
+            profile.save()
+            login(request, user)
+            return redirect('/')
+        else:
+            error_message = 'Invalid Signup'
+            print(form.errors) 
+            print(profileForm.errors)  
+
+    form = CreateUserForm()
+    profileForm = VendorSignUp()
+    context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
+    return render(request, 'registration/vendor.html', context)
+
+
+
+
+
+
+
+
 
 def user_update(request, user_id):
     user = User.objects.get(id=user_id)
