@@ -2,12 +2,28 @@
 
 {% block content %}
 
-{% if object %}
+<!-- {% if object %}
   <h1>Edit <span class="teal-text">{{ object.name }}</span></h1>
 {% else %}
   <h1>Add Work</h1>
-{% endif %}
+{% endif %} -->
 
+
+
+<div class="addwork-header">
+  <div class="addwork-symbol"><img src="../static/images/symbol.png" alt="logo" width="20" ></div>
+ 
+  <h2>Let's do it together ...</h2>
+
+  <p>"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
+</div>
+
+
+
+<div class="addwork-page">
+  <div class="addwork-cont">
+    <div class="addworkform-img"><img src="https://i.postimg.cc/CxLgbTmn/whiteflower.jpg" class="addworkform-image" ></div>
+    <div class="addworkform-cont">
 <form action="" method="post">
   {% csrf_token %}
   <table>
@@ -15,6 +31,15 @@
   </table>
   <input type="submit" value="Submit" class="btn">
 </form>
+</div>
 
+</div>
+</div>
+
+
+<script>
+  let categoryFle = document.getElementById('id_category')
+  M.FormSelect.init(categoryFle)
+  </script>
 
 {% endblock %}

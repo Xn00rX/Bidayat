@@ -2,12 +2,19 @@
 
 {% block content %}
   <h1>Login</h1>
+  <div class="login-page">
+    <div class="login-cont">
+      <div class="form-cont">
 
   <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" class="btn" value="Login">
   </form>
+</div>
+<div class="form-img"><img src="https://i.postimg.cc/fRdR6n0r/photo-1525772764200-be829a350797.jpg" class="form-image" ></div>
+</div>
+</div>
 
   <p><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
 
