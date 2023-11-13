@@ -30,7 +30,7 @@
         {% if user.is_authenticated %}
         <a href="{% url 'user_detail' user.id %}">Profile</a>
         <a href="{% url 'message_index' %}">Messages</a>    
-        <a href="{% url 'message_create' %}">Send Message</a>
+        
         <a href="{% url 'logout' %}"> Log Out </a>
         <a href="#!" class="collection-item"><span class="new badge">4</span></a>
   
@@ -45,10 +45,6 @@
 
         {% endif %}
       </div> 
-
-    
-
-
   </header>
   <main>
     {% block content %}

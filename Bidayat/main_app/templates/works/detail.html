@@ -10,14 +10,76 @@
     <p> Type: {{ work.worktype }} </p>
     <p> Category: {{ work.category }} </p>
 
-
   </div>
 
   <div>
-    <a href="{% url 'works_update' work.id %}">Edit</a>
+    <a href="{% url 'works_update' work.id  %}">Edit</a>
     <a href="{% url 'works_delete' work.id %}">Delete</a>
-
-
   </div>
 
+<!-- <div class="col s12 m8 offset-m2 l6 offset-l3">
+  <div class="card-panel grey lighten-5 z-depth-1">
+    <div class="row valign-wrapper">
+      <div class="col s2">
+        {% load static %}
+        <img src="{%  static 'images/user.jpg' %}" class="circle responsive-img">
+      </div>
+      <div class="col s10">
+        <table>
+          <thead>
+            <tr>
+                <th></th>
+                <th></th>
+
+        
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{workUser.username}}</td>
+              <td><a href="" class="btn-floating pulse"><i class="material-icons">description</i></a>
+              </a></td>
+            </tr>
+          </tbody>
+        </table>      
+
+        
+      </div>
+    </div>
+  </div>
+</div> -->
+
+{% for user in work.users.all %}
+<div class="col s12 m8 offset-m2 l6 offset-l3">
+  <div class="card-panel grey lighten-5 z-depth-1">
+    <div class="row valign-wrapper">
+      <div class="col s2">
+        {% for u in users_service.all %}
+          {% if u.user_id == user.id  %}
+            {% load static %}  
+            <img src="{% static u.image|cut:'main_app/static/' %}" class="circle responsive-img"/>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="col s10">
+        <div class="card-content">
+          <span class="card-title">{{user.username}}</span>
+          <p>{{user.id}}</p>
+          {% for u in users_service.all %}
+            {% if u.user_id == user.id  %}
+              <p>{{u.get_service_display}}</p>
+            {% endif %}
+          {% endfor %}
+          <p>I am a very simple card. I am good at containing small bits of information.
+          I am convenient because I require little markup to use effectively.</p>
+        </div>
+        <div class="card-action">
+          <a href="{% url 'user_detail' user.id %}"><button class="btn">Profile</button></a>
+          <a href="{% url 'message_create' user.id %}"><button class="btn">Message</button></a>
+        </div> 
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
 {% endblock %}

@@ -30,8 +30,6 @@ class WorkDelete(LoginRequiredMixin, DeleteView):
 
 
 
-  
-
 class CategoryCreate(CreateView):
   model = Category
   fields = ['name', 'image']
@@ -71,21 +69,37 @@ def about(request):
 class MessageList(ListView):
   model = Messages
 
+  def get_queryset(self):
+        queryset = super().get_queryset()
+        # messages = Messages.objects.filter(receiver_id=self.request.user,reply=False).count()
+        # print(messages)
+        return queryset.filter(receiver_id=self.request.user)
+
+
 class MessageCreate(CreateView):
   model = Messages
   fields = ['email','phoneNumber','budget','guestCount','eventType','eventDate','description']
 
+
   def form_valid(self,form):
-    form.instance.sender = self.request.user
+    form.instance.sender =  self.request.user
+    form.instance.receiver= User.objects.get(id=self.kwargs['workUser_id'])
     return super().form_valid(form)
 
+class MessageReply(CreateView):
+  model = Messages
+  fields = ['email','phoneNumber','description']
 
-# def Message_Create(request,user_id):
-#   form = MessageForm(request.POST)
-#   if form.is_valid():
-#     new_message = form.save(commit=False)
-#     new_message.
 
+  def form_valid(self,form):
+    form.instance.sender =  self.request.user
+    form.instance.receiver= User.objects.get(id=self.kwargs['workUser_id'])
+    msg = Messages.objects.get(id=self.kwargs['message_id'])
+    print(self.kwargs['message_id'])
+    print(msg.reply)
+    msg.reply='True'
+    msg.save()
+    return super().form_valid(form)
 
 class MessageUpdate(UpdateView):
   model = Messages
@@ -142,7 +156,16 @@ def works_index(request):
 @login_required
 def works_detail(request, work_id):
   work = Work.objects.get(id=work_id)
-  return render(request, 'works/detail.html', {'work': work})
+  work_users = User.objects.filter(id__in=work.users.all())
+  # print(work_users)
+  # workUser = User.objects.filter(id__in=work.users.all())
+  # print('workUser',workUser)
+  users_service=Profile.objects.filter(user_id__in=work_users.all())
+  # print('userServes',users_service)
+
+
+  # return render(request, 'works/detail.html', {'work': work, 'workUser':workUser,'userService':userService})
+  return render(request, 'works/detail.html', {'work': work,' work_users': work_users,'users_service':users_service})
 
 
 

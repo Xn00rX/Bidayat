@@ -12,10 +12,11 @@ urlpatterns=[
 
   # Message paths
   path('messages/',views.MessageList.as_view(),name='message_index'),
-  path('messages/create',views.MessageCreate.as_view(),name='message_create'),
+  path('messages/create/<int:workUser_id>/',views.MessageCreate.as_view(),name='message_create'),
   path('messages/<int:pk>/update/',views.MessageUpdate.as_view(), name = 'message_update'),
   path('messages/<int:message_id>',views.Message_detail,name='message_detail'),
   path('messages/<int:pk>/delete',views.MessageDelete.as_view(),name='message_delete'),
+  path('messages/reply/<int:workUser_id>/<int:message_id>/',views.MessageReply.as_view(),name='message_reply'),
   
   
   path('detail/user_detail/<int:user_id>/', views.user_detail, name='user_detail'),
@@ -30,7 +31,7 @@ urlpatterns=[
   path('categoryworks.html/<int:category_id>', views.works_category, name='categoryworks'),
   path('works/', views.works_index, name='workindex'),
   path('works/<int:work_id>', views.works_detail, name='workdetail'),
-  path('works/create', views.WorkCreate.as_view(), name='works_create'),
+  path('works/create/', views.WorkCreate.as_view(), name='works_create'),
   path('works/<int:pk>/update', views.WorkUpdate.as_view(), name='works_update'),
   path('works/<int:pk>/delete', views.WorkDelete.as_view(), name='works_delete'),
   
