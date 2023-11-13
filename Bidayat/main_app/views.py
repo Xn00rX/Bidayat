@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Profile
+from .models import *
 from .forms import CreateUserForm , ProfileSignUp,MessageForm
 
 # * means to import everything from the following module
@@ -21,11 +21,19 @@ from .forms import *
 # Create your views here.
 
 class WorkCreate(LoginRequiredMixin, CreateView):
-  model = Work
-  fields = ['title', 'description', 'worktype', 'category']
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    model = Work
+    fields = ['title', 'description', 'worktype', 'category', 'image']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        response = super().form_valid(form)
+        
+
+        if 'images' in self.request.FILES:
+            for image in self.request.FILES.getlist('images'):
+                WorkImage.objects.create(work=self.object, image=image)
+
+        return response
 
 
 class WorkUpdate(LoginRequiredMixin, UpdateView):

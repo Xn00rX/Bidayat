@@ -66,3 +66,8 @@ class Work(models.Model):
     
   def __str__(self):
     return f"{self.users}{self.title}"
+
+
+class WorkImage(models.Model):
+    work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='main_app/static/uploads') 
