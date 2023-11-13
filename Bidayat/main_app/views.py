@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import *
+from .models import Profile
 from .forms import CreateUserForm , ProfileSignUp,MessageForm
 
 # * means to import everything from the following module
@@ -222,4 +222,58 @@ def user_update(request, user_id):
         'user_form': user_form,
         'profile_form': profile_form,
         'user': user,
+        'profile': profile
     })
+    
+
+def choices(request):
+  return render(request,'registration/popup.html')
+    
+def customerSignup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        profileForm = CustomerSignUp(request.POST, request.FILES)
+        if form.is_valid() and profileForm.is_valid():
+            user = form.save()
+            profile = profileForm.save(commit=False)
+            profile.user = user
+            profile.type = 'C'
+            profile.save()
+            login(request, user)
+            return redirect('/')
+        else:
+            error_message = 'Invalid Signup'
+            print(form.errors)  
+            print(profileForm.errors)  
+
+    form = CreateUserForm()
+    profileForm = CustomerSignUp()
+    context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
+    return render(request, 'registration/customer.html', context)
+
+
+
+
+def vendorSignup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        profileForm = VendorSignUp (request.POST, request.FILES)
+        if form.is_valid() and profileForm.is_valid():
+            user = form.save()
+            profile = profileForm.save(commit=False)
+            profile.user = user
+            profile.type = 'V'
+            profile.save()
+            login(request, user)
+            return redirect('/')
+        else:
+            error_message = 'Invalid Signup'
+            print(form.errors) 
+            print(profileForm.errors)  
+
+    form = CreateUserForm()
+    profileForm = VendorSignUp()
+    context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)
