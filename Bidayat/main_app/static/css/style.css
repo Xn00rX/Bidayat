@@ -7,10 +7,15 @@
   src: url(../fonts/Audrey-Bold.otf);
 }
 
+@font-face {
+  font-family: Harmony;
+  src: url(../fonts/Harmony.otf);
+}
+
 body {
   margin:0;
   color: black!important;
-  background-color: #F9F9F9;
+  background-color: #fafaf8;
 }
 
 .mynavbar {
@@ -309,8 +314,6 @@ label{
 
 
 
-
-
 .addwork-header {
   color: black;
   text-align:center;
@@ -349,3 +352,68 @@ label{
 }
 
 /* AddWork Form Ends here */
+
+
+/* Testimonials Starts here */
+.reviews{
+  display: block;
+  text-align: justify;
+  margin-bottom: 10%;
+  display: flex;
+  font-family: Audery-Normal;
+  font-size: 20px;
+  width: 100%;
+  padding-left: 3%;
+  justify-content: center;
+}
+
+.rev1 {
+  display: inline-block;
+  width: 420px;
+  padding: 3%;
+  
+}
+
+.rev2 {
+  display: inline-block;
+  width: 420px;
+  padding: 3%;
+}
+
+.rev3 {
+  display: inline-block;
+  width: 420px;
+  padding: 3%;
+}
+
+.signature {
+  font-family: Harmony;
+  font-size: 70px;
+  font-weight: 300;
+  line-height: 40px;;
+}
+
+.rev-h{
+  display: flex;
+  justify-content: center;
+}
+
+
+.rev-h h1{
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  margin: auto;
+}
+
+/* Reviews Styling ends here */
+
+.home-q {
+  background-color: #0F202A;
+  text-align: center;
+  margin: 0;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+  font-family: Audery-Normal;
+  font-size: 32px;
+
+}
