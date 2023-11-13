@@ -10,6 +10,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
 from .forms import CreateUserForm , ProfileSignUp,MessageForm
+
+# * means to import everything from the following module
+
+from .models import *      
+
+
+
+from .forms import *
 # Create your views here.
 
 class WorkCreate(LoginRequiredMixin, CreateView):
@@ -185,3 +193,25 @@ def categories_detail(request, category_id):
 
 
 
+
+def user_update(request, user_id):
+    user = User.objects.get(id=user_id)
+    profile = Profile.objects.get(user=user)
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('user_detail', user_id=user.id )
+    else:
+        user_form = UserForm(instance=user)
+        profile_form = ProfileForm(instance=profile)
+
+    return render(request, 'detail/user_update.html', {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'user': user,
+    })
