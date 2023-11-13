@@ -8,7 +8,6 @@
 {% else %}
 <h1>Send Message</h1>
 {% endif %}
-
 <div class="row">
   <form class="col s12" action="" method="post">
     {% csrf_token %}
@@ -22,6 +21,7 @@
         <label for="phoneNumber">Phone Number</label>
       </div>
     </div>
+    {% if 'create' in request.path  %}
     <div class="row">
       <div class="input-field col s6">
         {{form.budget}}
@@ -42,6 +42,7 @@
         <label for="eventDate">Event Date</label>
       </div>
     </div>
+    {% endif %}
     <div class="row">
       <div class="input-field col s12">
         {{form.description}}
