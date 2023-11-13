@@ -44,7 +44,7 @@ body {
 }
 
 .mynavbar a:hover, .mydropdown:hover .mydropbtn {
-  background-color: red !important;
+  background-color:#ddd !important;
 }
 
 .mydropdown-content {
@@ -77,7 +77,6 @@ body {
   border-style: solid;
   color: black;
 }
-
 
 .tbl{
   text-decoration: none !important;
@@ -287,6 +286,7 @@ label{
   width: 90vh;
   padding-left: 0;
   justify-content: center;
+  margin-top: 0;
 }
 
 .addworkform-img{
@@ -320,12 +320,14 @@ label{
   font-family: Audery-Normal;
   font-size: 23px;
   height: 320px;
-  margin-top: 5%;
+  margin-top: 0;
 }
 
 .addwork-header h2{
   font-family: Audery-Bold;
   padding: 0;
+  line-height: 0;
+  margin-top: 0;
 }
 
 .addwork-header p{
@@ -333,12 +335,15 @@ label{
   justify-content: center;
   width: 70%;
   margin: auto;
+  margin-top: 2%;
+  margin-bottom: 0;
   padding: 0;
 }
 
 .addwork-symbol {
   text-align: center;
   margin: 0;
+  padding-bottom: 8%;
   justify-content: center;
   height: 40px;
 }
