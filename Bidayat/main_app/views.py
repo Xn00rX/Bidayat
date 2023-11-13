@@ -13,9 +13,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # * means to import everything from the following module
 
 from .models import *      
-
-
-
 from .forms import *
 # Create your views here.
 

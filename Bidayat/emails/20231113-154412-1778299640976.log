@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8100
+From: webmaster@localhost
+To: salman@gmail.com
+Date: Mon, 13 Nov 2023 12:44:12 -0000
+Message-ID: <169987945217.15424.6749635180376147391@DESKTOP-61K4MUD>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8100.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8100/accounts/reset/Mg/bxm11o-c1d8ff9ca97d1a1acce234ee40c9a6ff/
+
+Your username, in case you’ve forgotten: Salman
+
+Thanks for using our site!
+
+The 127.0.0.1:8100 team
+
+
+
+-------------------------------------------------------------------------------
