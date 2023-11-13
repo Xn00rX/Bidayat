@@ -9,3 +9,4 @@ def add_variable_to_context(request):
 
 def messages_num(request):
     messages = Messages.objects.filter(receiver_id=request.user,reply=False).count()
+    return {'messages': messages}

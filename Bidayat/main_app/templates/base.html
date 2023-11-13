@@ -32,8 +32,7 @@
         <a href="{% url 'message_index' %}">Messages</a>    
         
         <a href="{% url 'logout' %}"> Log Out </a>
-        <a href="#!" class="collection-item"><span class="new badge">4</span></a>
-  
+        <a href="#!" class="collection-item"><span class="new badge">{{ messages }}</span></a>
         Hi {{ user.username }}
         
 

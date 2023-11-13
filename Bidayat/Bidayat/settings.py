@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'main_app.context_processors.add_variable_to_context',
+                'main_app.context_processors.messages_num',
             ],
         },
     },
