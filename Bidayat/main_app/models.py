@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from datetime import date
+from django.utils import timezone
 
 # Create your models here.
 
@@ -20,6 +22,7 @@ class Work(models.Model):
   worktype = models.CharField(max_length=80) 
   user = models.ForeignKey(User, on_delete=models.CASCADE)
   category = models.ForeignKey(Category, on_delete=models.CASCADE)
+  image = models.ImageField(upload_to="main_app/static/uploads",null=True, blank=True) 
 
 
   def get_absolute_url(self):
@@ -27,10 +30,14 @@ class Work(models.Model):
     
   def __str__(self):
     return f"{self.title}"
-from datetime import date
-from django.contrib.auth.models import User
-from django.urls import reverse
-from django.utils import timezone
+  
+  
+  
+class WorkImage(models.Model):
+    work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='main_app/static/uploads')
+
+
 
 # Create your models here.
 

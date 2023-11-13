@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Category, Work
+from .models import *
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.forms.models import BaseModelForm
 from .models import Messages,User
@@ -19,12 +19,22 @@ from .models import *
 from .forms import *
 # Create your views here.
 
+
 class WorkCreate(LoginRequiredMixin, CreateView):
-  model = Work
-  fields = ['title', 'description', 'worktype', 'category']
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    model = Work
+    fields = ['title', 'description', 'worktype', 'category', 'image']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        response = super().form_valid(form)
+        
+
+        if 'images' in self.request.FILES:
+            for image in self.request.FILES.getlist('images'):
+                WorkImage.objects.create(work=self.object, image=image)
+
+        return response
+
 
 
 class WorkUpdate(LoginRequiredMixin, UpdateView):
@@ -183,6 +193,8 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
+from django.core.files.storage import FileSystemStorage
+
 def user_update(request, user_id):
     user = User.objects.get(id=user_id)
     profile = Profile.objects.get(user=user)
@@ -194,7 +206,15 @@ def user_update(request, user_id):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            return redirect('user_detail', user_id=user.id )
+
+          
+            uploaded_file = request.FILES.get('file')  
+            if uploaded_file:
+                
+                profile.image = uploaded_file
+                profile.save()
+
+            return redirect('user_detail', user_id=user.id)
     else:
         user_form = UserForm(instance=user)
         profile_form = ProfileForm(instance=profile)
@@ -203,4 +223,7 @@ def user_update(request, user_id):
         'user_form': user_form,
         'profile_form': profile_form,
         'user': user,
+        'profile': profile
     })
+
+  

@@ -33,13 +33,19 @@ urlpatterns=[
   path('messages/<int:pk>/delete',views.MessageDelete.as_view(),name='message_delete'),
   
   
+  path('users/<int:user_id>/update/', views.user_update , name='user_update' ),
   path('detail/user_detail/<int:user_id>/', views.user_detail, name='user_detail'),
+  path('about/',views.about,name='about'),  
   path('accounts/signup/',views.signup,name='signup'),
   path('change_password/', auth_views.PasswordChangeView.as_view(), name='password_change'),
   path('change_password/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
-  path('users/<int:user_id>/update/', views.user_update , name='user_update' ),
   
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+
+
+
