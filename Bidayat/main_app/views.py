@@ -86,9 +86,6 @@ def user_detail(request, user_id):
 
 
 
-def about(request):
-  return render(request, 'about.html')
-
 @login_required
 def works_category(request, category_id):
   works = Work.objects.filter(category=category_id)

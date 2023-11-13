@@ -7,7 +7,11 @@
 {% if error_message %}
 <p class="red_text">{{error_message}} </p>
 {% endif %}
+<div class="signup-page">
 
+  
+<div class="signup-cont">
+  <div class="form-cont">
 <form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST">
   {% csrf_token %}
   
@@ -19,6 +23,12 @@
 
   <input type="submit" class="btn" value="Signup">
 </form>
+</div>
+<div class="form-img"><img src="https://i.postimg.cc/fRdR6n0r/photo-1525772764200-be829a350797.jpg" class="form-image" ></div>
+</div>
+</div>
+
+
 <script>
   
 let typeFile = document.getElementById('id_type')
