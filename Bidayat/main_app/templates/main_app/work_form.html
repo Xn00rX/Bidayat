@@ -8,23 +8,7 @@
   <h1>Add Work</h1>
 {% endif %} -->
 
-
-
-<div class="addwork-header">
-  <div class="addwork-symbol"><img src="../static/images/symbol.png" alt="logo" width="20" ></div>
- 
-  <h2>Let's do it together ...</h2>
-
-  <p>"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
-</div>
-
-
-
-<div class="addwork-page">
-  <div class="addwork-cont">
-    <div class="addworkform-img"><img src="https://i.postimg.cc/CxLgbTmn/whiteflower.jpg" class="addworkform-image" ></div>
-    <div class="addworkform-cont">
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <table>
     {{ form.title.label_tag }} {{ form.title }}
@@ -45,5 +29,7 @@
   let categoryFle = document.getElementById('id_category')
   M.FormSelect.init(categoryFle)
   </script>
+
+
 
 {% endblock %}

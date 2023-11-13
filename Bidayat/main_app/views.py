@@ -13,6 +13,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 # * means to import everything from the following module
 
 from .models import *      
+
+
+
 from .forms import *
 # Create your views here.
 
@@ -85,6 +88,9 @@ def user_detail(request, user_id):
         return render(request, 'detail/user_not_found.html')
 
 
+
+def about(request):
+  return render(request, 'about.html')
 
 @login_required
 def works_category(request, category_id):
@@ -228,7 +234,7 @@ def vendorSignup(request):
     form = CreateUserForm()
     profileForm = VendorSignUp()
     context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
-    return render(request, 'registration/vendor.html', context)
+    return render(request, 'registration/signup.html', context)
 
 
 

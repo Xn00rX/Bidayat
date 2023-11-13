@@ -15,7 +15,7 @@ urlpatterns=[
   path('choice/',views.choices, name='popup'),
   
   
-  path('about/',views.about,name='about'),
+  # path('about/',views.about,name='about'),
   path('categories/', views.categories_index, name='index'),
   path('categories/<int:category_id>', views.categories_detail, name='categorydetail'),
 
@@ -39,7 +39,7 @@ urlpatterns=[
   
   path('users/<int:user_id>/update/', views.user_update , name='user_update' ),
   path('detail/user_detail/<int:user_id>/', views.user_detail, name='user_detail'),
-  path('about/',views.about,name='about'),  
+  path('about/',views.about, name='about'),  
   
 
   path('accounts/customer/signup/',views.customerSignup, name='customer'),
