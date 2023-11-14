@@ -3,9 +3,22 @@
 {% block content %}
 
 <h1> Work List </h1>
+<div class="aboutus">
+    <img src="../static/images/symbol.png" alt="logo" width="20" >
+  </div>
+  
+  <div class="aboutus1">
+   <div class="left aboutus-left"> <img src="../static/images/b.png" alt="logo" width="145" ></div>
+   <div class="right aboutus-right"> 
+    <h1>About us</h1>
+  
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p></div>
+  
+  </div>
 
 {% for work in works %}
 <div>
+    
 
 <a href="{% url 'workdetail' work.id %}">
 
