@@ -29,10 +29,10 @@
           {% endfor %}
         </div>
         </div>
-        {% if user_authenticated %}
+        {% if request.user.is_authenticated %}
         <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'user_detail' user.id %}">Profile</button></a></div>
         <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'works_create' %}">Add Work</button></a></div>
-        <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'message_index' %}">Messages {{ messages }}</button></a></div> 
+        <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'message_index' %}">Messages {{messages}} </button></a></div> 
         <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'logout' %}"> Log Out </button></a></div>
         <!-- <a href="#!" class="collection-item"><span class="new badge">4</span></a> -->
   
@@ -48,7 +48,6 @@
         {% endif %}
       </div> 
     </div>
- 
 
     
 

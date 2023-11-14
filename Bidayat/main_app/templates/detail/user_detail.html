@@ -7,20 +7,20 @@
     <p>Username: {{ profile.user.username }}</p>
     <p>Email: {{ profile.user.email }}</p>
     <p> User  Type: {{profile.type}} </p>
-
     <div>
-
       {%load static %}
       <img width="100px" height="100px" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
       </div>
 
-<<<<<<< HEAD
+      {% if profile.service == '10' %}
+      <p>{{profile.view}}</p>
+      <div class="img-box">
+        <iframe width="600px" height="350" src="{{profile.view}}" frameborder="0"></iframe>
+      </div>
+      {% endif %}
+
     <a href="" > Edit </a>
 
-=======
-      <a href="{% url 'user_update' user.id %}">Edit</a>
-    <a href="{% url 'message_create' %}"><button>Message</button></a>
->>>>>>> d4129c7ffd39b56ce4578a8d2b4c930c34fdd226
 
 
 
