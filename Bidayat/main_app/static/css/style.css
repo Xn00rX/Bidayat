@@ -489,12 +489,10 @@ label{
 /* VIP CLIENTS ends here */
 
 
+/* Ease in animation starts here */
 @import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
 
-
-
 .reveal{
-
   transform: translateY(150px);
   opacity: 0;
   transition: 1s all ease;
@@ -504,3 +502,5 @@ label{
   transform: translateY(0);
   opacity: 1;
 }
+
+/* Ease in animation ends here */
