@@ -14,10 +14,33 @@ class CreateUserForm(UserCreationForm):
 class ProfileSignUp(ModelForm):
     class Meta:
         model = Profile
-        fields = ['image','type','service']
+        fields = ['image','type','service','view']
+        
+  
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = '__all__'  
+
+class CustomerSignUp(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
         
         
+class VendorSignUp(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image','service']
+
 class MessageForm(ModelForm):
     class Meta:
         model = Messages
         fields = ['email','phoneNumber','budget','guestCount','eventType','eventDate','description']
+

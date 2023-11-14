@@ -13,10 +13,13 @@
   <p>Event Date: {{message.eventDate}}</p>
   <p>Description: {{message.description}}</p>
   <p>Sender: {{message.sender}}</p>
+  <p>Receiver:{{message.receiver.id}}</p>
+<p>{{message.id}}</p>
 </div>
 <div class="card-action">
   <a href="{% url 'message_update' message.id %}" class="btn-floating pulse"><i class="material-icons">edit</i></a>
   <a href="{% url 'message_delete' message.id %}" class="btn-floating pulse"><i class="material-icons">delete</i></a>
+  <a href="{% url 'message_reply'  message.sender.id message.id %}" class="btn-floating pulse"><i class="material-icons">reply</i></a>
 </div>
 
 

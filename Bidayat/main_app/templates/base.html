@@ -11,7 +11,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script type="text/javascript" src="{% static 'JS/script.js' %}"></script>
-
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -29,10 +28,10 @@
           {% endfor %}
         </div>
         </div>
-        {% if user.is_authenticated %}
+        {% if request.user.is_authenticated %}
         <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'user_detail' user.id %}">Profile</button></a></div>
         <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'works_create' %}">Add Work</button></a></div>
-        <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'message_index' %}">Messages</button></a></div>   
+        <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'message_index' %}">Messages {{messages}} </button></a></div> 
         <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'logout' %}"> Log Out </button></a></div>
         <!-- <a href="#!" class="collection-item"><span class="new badge">4</span></a> -->
   
@@ -42,13 +41,12 @@
         {% else %}
 
         <div class="mydropdown"><button class="mydropbtn"><a href="{%  url 'login' %}"> Login </button></a> </div>
-        <div class="mydropdown"><button class="mydropbtn"> <a href="{%  url 'signup' %}"> Sign Up </button></a> </div>
+        <div class="mydropdown"><button class="mydropbtn"> <a href="{%  url 'popup' %}"> Sign Up </button></a> </div>
 
 
         {% endif %}
       </div> 
     </div>
- 
 
     
 

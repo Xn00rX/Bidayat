@@ -1,35 +1,109 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="portfolio-cont ">
+  <h2 class="reveal">PORTFOLIO</h2>
+  <p class="reveal">WEDDINGS, CELEBRATIONS & MORE</p>
+</div>>
 
-<h1> Work List </h1>
-<div class="aboutus">
-    <img src="../static/images/symbol.png" alt="logo" width="20" >
-  </div>
-  
-  <div class="aboutus1">
-   <div class="left aboutus-left"> <img src="../static/images/b.png" alt="logo" width="145" ></div>
-   <div class="right aboutus-right"> 
-    <h1>About us</h1>
-  
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p></div>
-  
+<div class="portfolio-q">
+  <div class=" reveal">
+  <img src="../static/images/b.png" alt="logo" width="23px" >
+  <h6>TIMELESS CELEBRATIONS OF JOY</h6>
+  <p>Events may last for a day, but memories last forever.<br> We strive to create an overall thoughtful and authentic experiencen <br>for our couples, where every creative detail contributes to a seamless result.</p>
+</div>
+</div>
+
+
+  <div class="container">
+    <div class="row">
+      {% for work in works %}
+     
+        <div class="card reveal">
+          <div class="card-body">
+            <div class="image-container">
+              <div class="image-slider">
+                {% for work_image in work.images.all %}
+                  {% with image_path=work_image.image.url|cut:'main_app/' %}
+                    <img class="card-img" src="{{ image_path }}" alt="Work Image">
+                  {% endwith %}
+                {% endfor %}
+              </div>
+            </div>
+            
+            <a href="{% url 'workdetail' work.id %}">
+              <h5 class="card-title">{{ work.title }}</h5>
+            </a>
+      
+          </div>
+        </div>
+
+      {% endfor %}
+    </div>
   </div>
 
-{% for work in works %}
-<div>
+
+  <style>
+    .container {
+      margin-top: 3%;
+      margin-bottom: 5%;
+  
+    }
+    .image-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      height:50%;
+
+    }
+
+    .row {
+      display: flex;
+      
+    }
+
+    .image-slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out ;
+    }
+
+    .card-img {
+      height: 50vh;
+      cursor: pointer;
+    }
+
+    .card-title {
+      text-align: left;
+    }
     
+    .card {
+      height: 440px;
+      width: 300px;
+      box-shadow: none;
+      background-color: #F5F5F3;
+      display: inline-block;
+      margin: auto;
+    }
 
-<a href="{% url 'workdetail' work.id %}">
-
-<div>
-    <span class="card-title">{{ work.title }}</span>
-</div>
-</div>
-
-</a>
-{% endfor %}
+    .card a{
+      color: black;
+    }
 
 
+  </style>
+  <script>
+    const imageSlider = document.querySelectorAll('.image-slider');
+    imageSlider.forEach(slider => {
+      let imageIndex = 0;
+      const images = slider.querySelectorAll('.card-img');
+      const imageWidth = images[0].clientWidth;
 
+      slider.addEventListener('click', () => {
+        imageIndex = (imageIndex + 1) % images.length;
+        slider.style.transform = `translateX(-${imageIndex * imageWidth}px)`;
+      });
+    });
+  </script>
+</style>
 {% endblock %}
