@@ -35,6 +35,7 @@ class Profile(models.Model):
     type = models.CharField(max_length=1, choices=ROLE, default=ROLE[0][0])
     image = models.ImageField(upload_to="main_app/static/uploads", default="")
     service = models.CharField(max_length=2, choices=SERVICE, default=SERVICE[0][0])
+    view=models.CharField(max_length=500)
 
     def __str__(self):
       return f"{self.user_id} {self.get_service_display()} {self.image}"

@@ -14,7 +14,7 @@ class CreateUserForm(UserCreationForm):
 class ProfileSignUp(ModelForm):
     class Meta:
         model = Profile
-        fields = ['image','type','service']
+        fields = ['image','type','service','view']
         
   
 
@@ -39,7 +39,6 @@ class VendorSignUp(ModelForm):
         model = Profile
         fields = ['image','service']
 
-       
 class MessageForm(ModelForm):
     class Meta:
         model = Messages

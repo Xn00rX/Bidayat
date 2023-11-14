@@ -22,7 +22,7 @@ from .forms import *
 
 class WorkCreate(LoginRequiredMixin, CreateView):
     model = Work
-    fields = ['title', 'description', 'worktype', 'category', 'image']
+    fields = ['title', 'description', 'worktype', 'category','users', 'image']
 
     def form_valid(self, form):
         form.instance.user = self.request.user

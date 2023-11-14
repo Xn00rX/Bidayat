@@ -11,8 +11,8 @@
 
 
 <div class="addwork-header">
-  <div class="addwork-symbol"><img src="../static/images/symbol.png" alt="logo" width="20" ></div>
- 
+  <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
+
   <h2>Let's do it together ...</h2>
 
   <p>"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
@@ -31,7 +31,8 @@
           {{ form.title.label_tag }} {{ form.title }}
           {{ form.description.label_tag }} {{ form.description }}
           {{ form.worktype.label_tag }} {{ form.worktype }}
-          {{ form.category.label_tag }} {{ form.category }}
+          {{ form.category.label_tag }} {{ form.category }} <br>
+          {{ form.users.label_tag }}{{ form.users }}
           <input type="file" name="images" accept="image/*" multiple>
         </table>
         <input type="submit" value="Submit" class="btn">
@@ -46,6 +47,9 @@
 <script>
   let categoryFle = document.getElementById('id_category')
   M.FormSelect.init(categoryFle)
+
+  let usersFle = document.getElementById('id_users')
+  M.FormSelect.init(usersFle)
   </script>
 
 

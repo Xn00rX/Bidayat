@@ -2,14 +2,26 @@
 
 {% block content %}
 
-<h1>Sign Up</h1>
+<!-- <h1>Sign Up</h1> -->
 
 {% if error_message %}
 <p class="red_text">{{error_message}} </p>
 {% endif %}
-<div class="signup-page">
 
-  
+
+<div class="addwork-header">
+  <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png"  width="20" ></div>
+ 
+  <h2>Join us...</h2>
+
+  <p>"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
+</div>
+
+
+
+
+
+<div class="signup-page">
 <div class="signup-cont">
   <div class="form-cont">
 <form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST">
