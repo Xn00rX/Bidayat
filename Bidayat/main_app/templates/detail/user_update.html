@@ -19,10 +19,11 @@
   {{ user_form.as_p }}
 
 
- 
+  {% if user.type == V %}
   {{ profile_form.type }}
   {{ profile_form.service }}
 
+  {% endif %}
   
 
 
