@@ -28,16 +28,19 @@
           {% endfor %}
         </div>
         </div>
-        {% if request.user.is_authenticated %}
+        {% if user_authenticated %}
+        {% if user_type == 'V' %}
         <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'user_detail' user.id %}">Profile</button></a></div>
         <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'works_create' %}">Add Work</button></a></div>
         <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'message_index' %}">Messages {{messages}} </button></a></div> 
         <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'logout' %}"> Log Out </button></a></div>
-        <!-- <a href="#!" class="collection-item"><span class="new badge">4</span></a> -->
-  
+        <!-- <a href="#!" class="collection-item"><span class="new badge">4</span></a> -->  
+        {% elif user_type == 'C' %}
+        <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'user_detail' user.id %}">Profile</button></a></div>
+        <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'message_index' %}">Messages {{messages}} </button></a></div> 
+        <div class="mydropdown"><button class="mydropbtn"><a href="{% url 'logout' %}"> Log Out </button></a></div>
+        {% endif %}
         <div class="mydropdown"><button class="mydropbtn"><p>Hi {{ user.username }} </button> </p></div>
-        
-
         {% else %}
 
         <div class="mydropdown"><button class="mydropbtn"><a href="{%  url 'login' %}"> Login </button></a> </div>

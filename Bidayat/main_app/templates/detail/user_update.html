@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% load static %}
+
 
 
 
@@ -19,9 +19,10 @@
   {{ user_form.as_p }}
 
 
-  {% if profile_form == C %}
+ 
   {{ profile_form.type }}
   {{ profile_form.service }}
+
   
 
 
@@ -39,6 +40,14 @@
   M.FormSelect.init(typeFile)
   let serviceFile = document.getElementById('id_service')
   M.FormSelect.init(serviceFile)
+
+  // typeFile.addEventListener('change', function () {
+  //   if (typeFile.value === 'Vendor') {
+  //     serviceField.style.display = 'block';
+  //   } else {
+  //     serviceField.style.display = 'none';
+  //   }
+  // });
 </script>
 
 {% endblock %}
