@@ -1,3 +1,4 @@
+/// slideshow animaion starts here
 window.onload = function () {
   imgs = document.getElementById('slideshow').children
   interval = 4000
@@ -15,3 +16,23 @@ window.onload = function () {
     imgs[currentPic].style.animation = 'fadey ' + interval + 'ms'
   }, interval)
 }
+
+///content ease in animation starts here
+
+function reveal() {
+  let reveals = document.querySelectorAll('.reveal')
+
+  for (let i = 0; i < reveals.length; i++) {
+    let windowHeight = window.innerHeight
+    let elementTop = reveals[i].getBoundingClientRect().top
+    let elementVisible = 150
+
+    if (elementTop < windowHeight - elementVisible) {
+      reveals[i].classList.add('active')
+    } else {
+      reveals[i].classList.remove('active')
+    }
+  }
+}
+
+window.addEventListener('scroll', reveal)
