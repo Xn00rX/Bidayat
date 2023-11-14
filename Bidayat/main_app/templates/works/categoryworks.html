@@ -1,35 +1,67 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <div class="container">
+    <h1>Work List</h1>
 
-<h1> Work List </h1>
-<div class="aboutus">
-    <img src="../static/images/symbol.png" alt="logo" width="20" >
+    <div class="row">
+      {% for work in works %}
+        <div class="card">
+          <div class="card-body">
+            <div class="image-container">
+              <div class="image-slider">
+                {% for work_image in work.images.all %}
+                  {% with image_path=work_image.image.url|cut:'main_app/' %}
+                    <img class="card-img" src="{{ image_path }}" alt="Work Image">
+                  {% endwith %}
+                {% endfor %}
+              </div>
+            </div>
+            <a href="{% url 'workdetail' work.id %}">
+              <h5 class="card-title">{{ work.title }}</h5>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
-  
-  <div class="aboutus1">
-   <div class="left aboutus-left"> <img src="../static/images/b.png" alt="logo" width="145" ></div>
-   <div class="right aboutus-right"> 
-    <h1>About us</h1>
-  
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries.</p></div>
-  
-  </div>
+  <style>
+    .image-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      height:50%;
 
-{% for work in works %}
-<div>
-    
+    }
 
-<a href="{% url 'workdetail' work.id %}">
+    .image-slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
 
-<div>
-    <span class="card-title">{{ work.title }}</span>
-</div>
-</div>
+    .card-img {
+      max-width: 100%;
+      max-height: 100%;
+      cursor: pointer;
+    }
 
-</a>
-{% endfor %}
+    .card-title {
+      text-align: center;
+    }
+  </style>
+  <script>
+    const imageSlider = document.querySelectorAll('.image-slider');
+    imageSlider.forEach(slider => {
+      let imageIndex = 0;
+      const images = slider.querySelectorAll('.card-img');
+      const imageWidth = images[0].clientWidth;
 
-
-
+      slider.addEventListener('click', () => {
+        imageIndex = (imageIndex + 1) % images.length;
+        slider.style.transform = `translateX(-${imageIndex * imageWidth}px)`;
+      });
+    });
+  </script>
+</style>
 {% endblock %}

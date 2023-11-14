@@ -21,11 +21,19 @@ from .forms import *
 # Create your views here.
 
 class WorkCreate(LoginRequiredMixin, CreateView):
-  model = Work
-  fields = ['title', 'description', 'worktype', 'category','users']
-  def form_valid(self, form):
-    form.instance.user = self.request.user
-    return super().form_valid(form)
+    model = Work
+    fields = ['title', 'description', 'worktype', 'category','users', 'image']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        response = super().form_valid(form)
+        
+
+        if 'images' in self.request.FILES:
+            for image in self.request.FILES.getlist('images'):
+                WorkImage.objects.create(work=self.object, image=image)
+
+        return response
 
 
 class WorkUpdate(LoginRequiredMixin, UpdateView):
@@ -214,4 +222,58 @@ def user_update(request, user_id):
         'user_form': user_form,
         'profile_form': profile_form,
         'user': user,
+        'profile': profile
     })
+    
+
+def choices(request):
+  return render(request,'registration/popup.html')
+    
+def customerSignup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        profileForm = CustomerSignUp(request.POST, request.FILES)
+        if form.is_valid() and profileForm.is_valid():
+            user = form.save()
+            profile = profileForm.save(commit=False)
+            profile.user = user
+            profile.type = 'C'
+            profile.save()
+            login(request, user)
+            return redirect('/')
+        else:
+            error_message = 'Invalid Signup'
+            print(form.errors)  
+            print(profileForm.errors)  
+
+    form = CreateUserForm()
+    profileForm = CustomerSignUp()
+    context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
+    return render(request, 'registration/customer.html', context)
+
+
+
+
+def vendorSignup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        profileForm = VendorSignUp (request.POST, request.FILES)
+        if form.is_valid() and profileForm.is_valid():
+            user = form.save()
+            profile = profileForm.save(commit=False)
+            profile.user = user
+            profile.type = 'V'
+            profile.save()
+            login(request, user)
+            return redirect('/')
+        else:
+            error_message = 'Invalid Signup'
+            print(form.errors) 
+            print(profileForm.errors)  
+
+    form = CreateUserForm()
+    profileForm = VendorSignUp()
+    context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
+    return render(request, 'registration/signup.html', context)

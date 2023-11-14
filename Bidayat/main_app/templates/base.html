@@ -11,7 +11,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <script type="text/javascript" src="{% static 'JS/script.js' %}"></script>
-
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -42,7 +41,7 @@
         {% else %}
 
         <div class="mydropdown"><button class="mydropbtn"><a href="{%  url 'login' %}"> Login </button></a> </div>
-        <div class="mydropdown"><button class="mydropbtn"> <a href="{%  url 'signup' %}"> Sign Up </button></a> </div>
+        <div class="mydropdown"><button class="mydropbtn"> <a href="{%  url 'popup' %}"> Sign Up </button></a> </div>
 
 
         {% endif %}
