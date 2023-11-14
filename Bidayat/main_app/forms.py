@@ -28,7 +28,16 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = '__all__'  
 
-
+class CustomerSignUp(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+        
+        
+class VendorSignUp(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image','service']
 
        
 class MessageForm(ModelForm):

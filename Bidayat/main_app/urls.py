@@ -30,6 +30,12 @@ urlpatterns=[
   path('users/<int:user_id>/update/', views.user_update , name='user_update' ),
   
   
+  path('accounts/customer/signup/',views.customerSignup, name='customer'),
+  path('accounts/vendor/signup/',views.vendorSignup, name='vendor'),
+  
+  
+  
+  
   path('categories/', views.categories_index, name='index'),
   path('categories/<int:category_id>', views.categories_detail, name='categorydetail'),
 
@@ -40,5 +46,8 @@ urlpatterns=[
   path('works/<int:pk>/update', views.WorkUpdate.as_view(), name='works_update'),
   path('works/<int:pk>/delete', views.WorkDelete.as_view(), name='works_delete'),
   
+  
+     
+  path('choice/',views.choices, name='popup'),
   # path('/', views.categories_base, name='index'),
 ]

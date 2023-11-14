@@ -59,6 +59,7 @@ class Work(models.Model):
   worktype = models.CharField(max_length=80) 
   users = models.ManyToManyField(User)
   category = models.ForeignKey(Category, on_delete=models.CASCADE)
+  image = models.ImageField(upload_to="main_app/static/uploads", default="none.jpg",null=True, blank=True) 
 
 
   def get_absolute_url(self):
@@ -66,3 +67,8 @@ class Work(models.Model):
     
   def __str__(self):
     return f"{self.users}{self.title}"
+
+
+class WorkImage(models.Model):
+    work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='main_app/static/uploads') 
