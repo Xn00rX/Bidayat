@@ -6,26 +6,27 @@
 
 
 
-    <div>
-    <p>Description: {{ work.description }}</p>
-    <p> Type: {{ work.worktype }} </p>
-    <p> Category: {{ work.category }} </p>
+  <div>
+  <p>Description: {{ work.description }}</p>
 
-    {%load static %}
-    {% for work_image in work.images.all %}7
-    {% with image_path=work_image.image.url|cut:'main_app/' %}
-    <img src="{{ image_path }}" alt="Work Image">
-    {% endwith %}
-    {% endfor %}
+  <p> Type: {{ work.worktype }} </p>
+  <p> Category: {{ work.category }} </p>
+
+  {%load static %}
+  {% for work_image in work.images.all %}7
+  {% with image_path=work_image.image.url|cut:'main_app/' %}
+  <img src="{{ image_path }}" alt="Work Image">
+  {% endwith %}
+  {% endfor %}
 
   </div>
 
   <div>
     <a href="{% url 'works_update' work.id  %}">Edit</a>
     <a href="{% url 'works_delete' work.id %}">Delete</a>
- 
-      <a href="{% url 'user_detail' user.id %}"><button class="btn">Profile</button></a>
-      <a href="{% url 'message_create' user.id %}"><button class="btn">Message</button></a>
+
+    <a href="{% url 'user_detail' user.id %}"><button class="btn">Profile</button></a>
+    <a href="{% url 'message_create' user.id %}"><button class="btn">Message</button></a>
 
   </div>
 
