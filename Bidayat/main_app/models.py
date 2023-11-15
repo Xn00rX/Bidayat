@@ -17,9 +17,13 @@ class Messages(models.Model):
   sender=models.ForeignKey(User, on_delete=models.CASCADE,related_name='sender')
   receiver=models.ForeignKey(User, on_delete=models.CASCADE, related_name='reciever')
   reply=models.BooleanField(default=False)
+  read=models.BooleanField(default=False)
 
   def get_absolute_url(self):
     return reverse('message_index')
+  
+  def __repr__(self):
+      return f"{self.sender.image}"
 
 ROLE = (('C', 'Customer'), ('V', 'Vendor'))
 SERVICE = (('1', 'Baker'), ('2', 'Photographer'),
@@ -35,7 +39,7 @@ class Profile(models.Model):
     type = models.CharField(max_length=1, choices=ROLE, default=ROLE[0][0])
     image = models.ImageField(upload_to="main_app/static/uploads", default="")
     service = models.CharField(max_length=2, choices=SERVICE, default=SERVICE[0][0])
-    view=models.CharField(max_length=500)
+    view=models.CharField(max_length=500,default='-')
 
     def __str__(self):
       return f"{self.user_id} {self.get_service_display()} {self.image}"
@@ -58,7 +62,8 @@ class Work(models.Model):
   worktype = models.CharField(max_length=80) 
   users = models.ManyToManyField(User)
   category = models.ForeignKey(Category, on_delete=models.CASCADE)
-  image = models.ImageField(upload_to="main_app/static/uploads", default="none.jpg",null=True, blank=True) 
+  image = models.ImageField(upload_to="main_app/static/uploads", default="none.jpg",null=True, blank=True)
+  
 
 
   def get_absolute_url(self):
