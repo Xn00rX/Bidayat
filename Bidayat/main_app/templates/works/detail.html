@@ -2,9 +2,55 @@
 
 {% block content %}
 
+<div class="addwork-header">
+  <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png"  width="20" ></div>
+ 
+  <h2>Stories to tell...</h2>
+
+  <p>"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
+</div>
+
+{% for user in work.users.all %}
+
+<div class="allrow">
+
+  <div class="card-info">
+    <div class="card-holder">
+    <div class="card ">
+
+        {% for u in users_service.all %}
+          {% if u.user_id == user.id  %}
+            {% load static %}  
+         <div class="box-img"><img src="{% static u.image|cut:'main_app/static/' %}" class="circle responsive-img"/></div> 
+          {% endif %}
+        {% endfor %}
+   
+   
+          <p>{{user.username}}</p>
+          {% for u in users_service.all %}
+            {% if u.user_id == user.id  %}
+              <p>{{u.get_service_display}}</p>
+            {% endif %}
+          {% endfor %}
+     
+          <div >
+           
+          <a href="{% url 'user_detail' user.id %}"><button class="btn">Profile</button></a>
+          <a href="{% url 'message_create' user.id %}"><button class="btn">Message</button></a>
+        </div>
+   
+
+      </div>
+      </div>
+      </div>
+
+{% endfor %}
+
+
+
+<div class="work-info">
 <h1> {{ work.title }} </h1>
 
-  <div>
   <p>Description: {{ work.description }}</p>
 
   <p> Type: {{ work.worktype }} </p>
@@ -17,43 +63,63 @@
   {% endwith %}
   {% endfor %}
 
-  </div>
 
-  <div>
+<div>
     <button class="btn"><a href="{% url 'works_update' work.id  %}">Edit</a></button>
     <button class="btn"><a href="{% url 'works_delete' work.id %}">Delete</a></button>
-
   </div>
 
 
-{% for user in work.users.all %}
-<div class="col s12 m8 offset-m2 l6 offset-l3">
-  <div class="card-panel grey lighten-5 z-depth-1">
-    <div class="row valign-wrapper">
-      <div class="col s2">
-        {% for u in users_service.all %}
-          {% if u.user_id == user.id  %}
-            {% load static %}  
-            <img src="{% static u.image|cut:'main_app/static/' %}" class="circle responsive-img"/>
-          {% endif %}
-        {% endfor %}
-      </div>
-      <div class="col s10">
-        <div class="card-content">
-          <span class="card-title">{{user.username}}</span>
-          {% for u in users_service.all %}
-            {% if u.user_id == user.id  %}
-              <p>{{u.get_service_display}}</p>
-            {% endif %}
-          {% endfor %}
-        </div>
-        <div class="card-action">
-          <a href="{% url 'user_detail' user.id %}"><button class="btn">Profile</button></a>
-          <a href="{% url 'message_create' user.id %}"><button class="btn">Message</button></a>
-        </div> 
-      </div>
-    </div>
-  </div>
 </div>
-{% endfor %}
+
+
+
+
+
+
+
+<style>
+
+.card {
+  width: 260px;
+  height: 220px;
+  justify-content: center;
+  text-align: center;
+  border-radius: 15px;
+  font-size: 17px;
+  line-height: 8px;
+  margin-left: 2%;
+  box-shadow: none;
+  margin-right: 2%;
+  padding:0
+
+}
+
+.box-img {
+  width: 100px;
+  padding: 0;
+  margin: auto;
+  padding-top: 5%;
+}
+
+.work-info {
+  display: inline-block;
+  width: 63%;
+}
+
+
+.allrow {
+  display: flex;
+  flex-direction: row;
+}
+.card-info {
+  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+</style>
+
+
 {% endblock %}
