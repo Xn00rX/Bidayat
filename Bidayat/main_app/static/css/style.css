@@ -233,7 +233,7 @@ label{
 
 label{
   font-family: Audery-Normal;
-  color: black!important;
+  
   font-size: 19px;
 }
 /* Signup Form Ends here */
@@ -553,3 +553,11 @@ label{
 
 
 /* Ctaegory Work Page endss here */
+
+.checkform {
+  color: black;
+}
+
+.checkform label {
+  color: black;
+}

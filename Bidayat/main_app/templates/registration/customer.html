@@ -19,7 +19,7 @@
 <div class="signup-cont reveal" style="background-color: white;">
   <div class="form-cont">
 
-<form action="{% url 'customer' %}" enctype="multipart/form-data" method="POST">
+<form action="{% url 'customer' %}" enctype="multipart/form-data" method="POST" class="checkform" >
   {% csrf_token %}
   {{ form.as_p }}
   {{ profileForm.as_p }}

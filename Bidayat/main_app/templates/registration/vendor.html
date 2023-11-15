@@ -24,7 +24,7 @@
 <div class="signup-page">
 <div class="signup-cont reveal" style="background-color: white;">
   <div class="form-cont">
-<form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST">
+<form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST" class="checkform">
   {% csrf_token %}
   
 
