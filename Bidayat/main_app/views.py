@@ -10,14 +10,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
 from .forms import CreateUserForm , ProfileSignUp,MessageForm
-from itertools import chain
 # * means to import everything from the following module
-
 from .models import *      
-
-
-
 from .forms import *
+
 # Create your views here.
 
 class WorkCreate(LoginRequiredMixin, CreateView):
@@ -68,12 +64,18 @@ class CategoryDelete(DeleteView):
 def home(request):
   return render(request,'index.html')
 
-
+@login_required
 def user_detail(request, user_id):
     try:
         user = User.objects.get(id=user_id)
+        # works=Work.objects.all()
+        # print(works)
+
+        userWorks=Work.objects.filter(users__id__in = [user_id])
+        print(userWorks)
+
         profile = Profile.objects.get(user=user)
-        return render(request, 'detail/user_detail.html', {'profile': profile})
+        return render(request, 'detail/user_detail.html', {'profile': profile,'userWork':userWorks})
     except User.DoesNotExist or Profile.DoesNotExist:
         return render(request, 'detail/user_not_found.html')
 
@@ -82,7 +84,7 @@ def user_detail(request, user_id):
 def about(request):
   return render(request, 'about.html')
 
-class MessageList(ListView):
+class MessageList(LoginRequiredMixin,ListView):
   model = Messages
 
   def get_queryset(self):
@@ -99,7 +101,7 @@ class MessageList(ListView):
   #     return sender
 
 
-class MessageCreate(CreateView):
+class MessageCreate(LoginRequiredMixin,CreateView):
   model = Messages
   fields = ['email','phoneNumber','budget','guestCount','eventType','eventDate','description']
 
@@ -109,7 +111,7 @@ class MessageCreate(CreateView):
     form.instance.receiver= User.objects.get(id=self.kwargs['workUser_id'])
     return super().form_valid(form)
 
-class MessageReply(CreateView):
+class MessageReply(LoginRequiredMixin,CreateView):
   model = Messages
   fields = ['email','phoneNumber','description']
 
@@ -124,11 +126,12 @@ class MessageReply(CreateView):
     msg.save()
     return super().form_valid(form)
 
-class MessageUpdate(UpdateView):
+class MessageUpdate(LoginRequiredMixin,UpdateView):
   model = Messages
   fields = ['email','phoneNumber','budget','guestCount','eventType','eventDate','description']
 
 
+@login_required
 def Message_detail(request,message_id):
   #SELECT * FROM 'main_app_cat' WHERE id = cat_id
   message = Messages.objects.get(id=message_id)
@@ -136,7 +139,7 @@ def Message_detail(request,message_id):
   message.save()
   return render(request, 'message/detail.html',{'message': message})
 
-class MessageDelete(DeleteView):
+class MessageDelete(LoginRequiredMixin,DeleteView):
   model = Messages
   success_url='/messages/'
 
@@ -182,11 +185,6 @@ def signup(request):
     return render(request, 'registration/signup.html', context)
 
 
-
-
-
-
-@login_required
 def works_category(request, category_id):
   works = Work.objects.filter(category=category_id)
   categories = Category.objects.all()
@@ -199,7 +197,6 @@ def works_index(request):
   return render(request, 'works/index.html', {'works': works})
 
 
-@login_required
 def works_detail(request, work_id):
   work = Work.objects.get(id=work_id)
   work_users = User.objects.filter(id__in=work.users.all())
@@ -317,7 +314,3 @@ def vendorSignup(request):
     profileForm = VendorSignUp()
     context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
     return render(request, 'registration/vendor.html', context)
-
-
-
-

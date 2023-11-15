@@ -29,9 +29,14 @@
   
 
   {{ form.as_p }}
-
-
-  {{ profileForm.as_p }}
+  <label>User image:</label>
+  {{profileForm.image}}
+  <br><br>
+  <label>Service:</label>
+  {{profileForm.service}}
+  <br>
+  <label>360 view link:</label>
+  {{profileForm.view}}
 
   <input type="submit" class="btn" value="Signup">
 </form>

@@ -23,7 +23,6 @@
 
 
       {% if profile.service == '10' %}
-      <p>{{profile.view}}</p>
       <div class="img-box">
         <iframe width="600px" height="350" src="{{profile.view}}" frameborder="0"></iframe>
       </div>
@@ -31,9 +30,13 @@
 
     <button class="btn"><a href="{% url 'user_update' user.id %}" > Edit </a></button>
 
-
-
-
+<br>
+    {% for work in userWork %}
+    <a href="{% url 'workdetail' work.id %}">
+      <h5 class="card-title">{{ work.title }}</h5>
+    </a>
+    {{work.description}}
+    {% endfor %}
 
   {% else %}
     <p>No profile found for this user.</p>

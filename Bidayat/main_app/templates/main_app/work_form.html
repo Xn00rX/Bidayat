@@ -25,7 +25,7 @@
     <div class="addworkform-img"><img alt="" src="https://i.postimg.cc/CxLgbTmn/whiteflower.jpg" class="addworkform-image" ></div>
     <div class="addworkform-cont">
 
-      <form action="" method="post" enctype="multipart/form-data">
+      <form action="" method="post" class="checkform" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
           {{ form.title.label_tag }} {{ form.title }}
