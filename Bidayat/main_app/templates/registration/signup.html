@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<!-- <h1>Sign Up</h1> -->
+
 <style>
 
   .popup {
@@ -20,7 +20,7 @@
       overflow-y: auto; 
   }
 
-  /* Styles for the Close Button */
+
   .close {
       color: #aaa;
       float: right;
@@ -35,7 +35,7 @@
       cursor: pointer;
   }
 
-  /* Styles for Popup Content */
+
   .popup-content {
       text-align: center;
   }
@@ -68,11 +68,11 @@
   </div>
 </div>
 
-<!-- Customer Signup Form Container -->
+
 <div id="customerFormContainer" class="popup">
   <div class="popup-content">
       <span class="close" id="customerCloseButton">&times;</span>
-      <!-- Customer Signup Form Goes Here -->
+
       <p>Customer Signup Form</p>
       <form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
@@ -86,11 +86,11 @@
   </div>
 </div>
 
-<!-- Vendor Signup Form Container -->
+
 <div id="vendorFormContainer" class="popup">
   <div class="popup-content">
       <span class="close" id="vendorCloseButton">&times;</span>
-      <!-- Vendor Signup Form Goes Here -->
+
       <p>Vendor Signup Form</p>
       <form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
@@ -108,7 +108,7 @@
 </div>
 
 <script>
-  // Get the elements
+  
 
 
   let typeFile = document.getElementById('id_type')
@@ -129,7 +129,7 @@ M.FormSelect.init(serviceFile)
   var customerCloseButton = document.getElementById('customerCloseButton');
   var vendorCloseButton = document.getElementById('vendorCloseButton');
 
-  // Event listeners
+ 
   closeButton.onclick = function () {
       popupContainer.style.display = 'none';
   };
@@ -152,12 +152,12 @@ M.FormSelect.init(serviceFile)
       vendorFormContainer.style.display = 'none';
   };
 
-  // Trigger the popup automatically on page load
+
   window.onload = function () {
       popupContainer.style.display = 'block';
   };
 
-  // Close popups if the user clicks outside the popup
+  
   window.onclick = function (event) {
       if (event.target == popupContainer) {
           popupContainer.style.display = 'none';
