@@ -9,30 +9,26 @@
 
   <p class="reveal">"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
 </div>
+
+<div class="alldiv">
 <div class="profile-box reveal">
-  <h2>Personal Profile</h2>
+  <h5>Personal Profile</h5>
 
   {% if profile %}
   <div>
     {%load static %}
-    <img width="50%"  src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
+    <img width="33%" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
     </div>
     <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
-    <p>Name: {{ profile.user.username }}</p>
-    <p>Email: {{ profile.user.email }}</p>
+    <p>{{ profile.user.username }}</p>
+    <p>{{ profile.user.email }}</p>
 
 
-      {% if profile.service == '10' %}
-      <p>{{profile.view}}</p>
-      <div class="img-box">
-        <iframe width="600px" height="350" src="{{profile.view}}" frameborder="0"></iframe>
-      </div>
-      {% endif %}
+
 
     <button class="btn"><a href="{% url 'user_update' user.id %}" > Edit </a></button>
 
-
-
+<br>
 
 
   {% else %}
@@ -40,19 +36,195 @@
   {% endif %}
   </div>
 
+  
 
 
-  <style>
+  <div class="side-header reveal" >
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+  {% if profile.service == '10' %}
+
+  <div class="addwork-header reveal">
+    <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
+  
+    <h3 class="reveal">GET A FULL 360 VIEW TO HALLS AND VENUES</h3>
+
+  </div>
+
+  <div class="img-box">
+    <iframe width="600px" height="350" src="{{profile.view}}" frameborder="0"></iframe>
+  </div>
+  {% endif %}
+
+  <div class="addwork-header reveal">
+    <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
+  
+    <h3 class="reveal">GET TO KNOW US BETTER ...</h3>
+  
+    <p class="reveal">"Cheers to you for a job well done! <br>No one can compare to your creativity and passion, and <br>it's no surprise that you've become so successful."</p>
+  </div>
+
+
+  <div class="portfolio-h reveal"><h3>PORTFOLIO</h3></div>
+<div class="container">
+
+  {% for work in userWork %}
+ 
+    <div class="card reveal">
+      <div class="card-body">
+        <div class="image-container">
+          <div class="image-slider">
+            {% for work_image in work.images.all %}
+              {% with image_path=work_image.image.url|cut:'main_app/' %}
+                <img class="card-img" src="{{ image_path }}" alt="Work Image">
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+        
+        <a href="{% url 'workdetail' work.id %}">
+          <h5 class="card-title">{{ work.title }}</h5>
+        </a>
+  
+      </div>
+    </div>
+
+  {% endfor %}
+
+</div>
+
+
+<style>
+  .container {
+    margin-top: 3%;
+    margin-bottom: 5%;
+  
+
+  }
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height:50%;
+
+  }
+
+  .image-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out ;
+  }
+
+  .card-img {
+    height: 50vh;
+    cursor: pointer;
+  }
+
+
+  .card-title {
+    text-align: left;
+  }
+  
+  .card {
+    height: 440px;
+    width: 300px;
+    box-shadow: none;
+    background-color: #F5F5F3;
+    display: inline-block;
+    margin: auto;
+    margin-bottom: 5%;
+  }
+
+  .card a{
+    color: black;
+  }
+
     .profile-box {
       background-color: #0F202A;
       color: white;
       text-align: center;
       justify-content: center;
-      width: 50%;
-      margin: auto;
-      font-size: 22px;
+      width: 30%;
+      font-size: 20px;
       padding: 2.7%;
+      margin-right: 0;
+      height: 430px;
+      margin-bottom: 5%;
+      display: inline-block;
+    }
+
+    .side-header {
+      background-color: #0F202A;
+      color: white;
+      text-align: center;
+      justify-content: center;
+      width: 100%;
+      font-size: 15px;
+      padding: 2.7%;
+      margin-right: 0;
+      height: 430px;
+      margin-bottom: 5%;
+      display: inline-block;
+      background-image: url('https://i.ibb.co/ryYY2J0/photo-1519225421980-715cb0215aed.jpg');
+      background-position: center;
+      background-size: cover;
+    }
+
+    .alldiv {
+      display: flex;
+    }
+
+    .portfolio-h {
+      margin: auto;
+      justify-content: center;
+      text-align: center;
+      margin-top: 5%;
       margin-bottom: 5%;
     }
-  </style>
+
+    .img-box {
+      margin: auto;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 7%;
+    }
+</style>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+   const imageSliders = document.querySelectorAll('.image-slider');
+
+   imageSliders.forEach(slider => {
+     let imageIndex = 0;
+     const images = slider.querySelectorAll('.card-img');
+     
+     
+     if (images.length > 0) {
+       const imageWidth = images[0].clientWidth;
+
+       const animateImages = () => {
+         imageIndex = (imageIndex + 1) % images.length;
+         slider.style.transform = `translateX(-${imageIndex * imageWidth}px)`;
+       };
+
+       setInterval(animateImages, 5000);
+     }
+   });
+ });
+</script>
+
+
 {% endblock %}
