@@ -22,8 +22,6 @@ class Messages(models.Model):
   def get_absolute_url(self):
     return reverse('message_index')
   
-  def __repr__(self):
-      return f"{self.sender.image}"
 
 ROLE = (('C', 'Customer'), ('V', 'Vendor'))
 SERVICE = (('1', 'Baker'), ('2', 'Photographer'),
@@ -78,3 +76,12 @@ class Work(models.Model):
 class WorkImage(models.Model):
     work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='main_app/static/uploads') 
+
+
+# class ReviewRating(models.Model):
+#     customer=models.ForeignKey(User, on_delete=models.CASCADE,related_name='customer')
+#     vendor=models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer')
+#     review=models.TextField(max_length=500)
+#     rating = models.FloatField()
+#     ip = models.CharField(max_length=20)
+#     updated_at=models.DateTimeField(auto_now_add=True)
