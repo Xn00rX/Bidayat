@@ -3,13 +3,15 @@
 {% block content %}
 <h3>Inbox</h3>
 {% for message in messages_list %}
-{% if message.reply == False %}
+{% if message.receiver_id == user.id %}
+
 <div class="col s12 m8 offset-m2 l6 offset-l3">
   <div class="card-panel grey lighten-5 z-depth-1">
     <div class="row valign-wrapper">
       <div class="col s2">
         {% load static %}
-        <img src="{%  static 'images/user.jpg' %}" class="circle responsive-img"> <!-- notice the "circle" class -->
+        <img src="{% static message.sender.Profile.image|cut:'main_app/static/' %}" class="circle responsive-img"> 
+        <!--  -->
       </div>
       <div class="col s10">
         <table>
@@ -20,6 +22,7 @@
                 <th>Event Type</th>
                 <th></th>
                 <th></th>
+                <th></th>
         
             </tr>
           </thead>
@@ -28,9 +31,15 @@
               <td>{{message.sender}}</td>
               <td>{{message.email}}</td>
               <td>{{message.eventType}}</td>
-              <td>{{message.reply}}</td>
-              <td><a href="{% url 'message_detail' message.id %}" class="btn-floating pulse"><i class="material-icons">description</i></a>
-              </a></td>
+              <!-- <td>{{message.reply}}</td> -->
+              {% if message.reply == False %}
+              <td><a href="{% url 'message_reply'  message.sender.id message.id %}" class="btn-floating pulse"><i class="material-icons">reply</i></a></td>
+              {% endif %}
+              {% if message.read == False %}
+              <td><a href="{% url 'message_detail' message.id %}" class="btn-floating pulse"><i class="material-icons">email</i></a></td>
+              {% else %}
+              <td><a href="{% url 'message_detail' message.id %}" class="btn-floating pulse"><i class="material-icons">drafts</i></a></td>
+              {% endif %}
             </tr>
           </tbody>
         </table>      
@@ -39,24 +48,27 @@
   </div>
 </div>
 
+
 {% endif %}
 {% endfor %}
 
-<h3>Reply Messages</h3>
+
+<h3>sent</h3>
 {% for message in messages_list %}
-{% if message.reply == True %}
+{% if message.sender_id == user.id %}
+
 <div class="col s12 m8 offset-m2 l6 offset-l3">
   <div class="card-panel grey lighten-5 z-depth-1">
     <div class="row valign-wrapper">
       <div class="col s2">
         {% load static %}
-        <img src="{%  static 'images/user.jpg' %}" class="circle responsive-img"> <!-- notice the "circle" class -->
+        <img src="{%  static message.receiver.Profile.image|cut:'main_app/static/'  %}" class="circle responsive-img"> 
       </div>
       <div class="col s10">
         <table>
           <thead>
             <tr>
-                <th>Sender</th>
+                <th>Receiver</th>
                 <th>Email</th>
                 <th>Event Type</th>
                 <th></th>
@@ -66,7 +78,7 @@
           </thead>
           <tbody>
             <tr>
-              <td>{{message.sender}}</td>
+              <td>{{message.receiver}}</td>
               <td>{{message.email}}</td>
               <td>{{message.eventType}}</td>
               <td>{{message.reply}}</td>
@@ -80,7 +92,11 @@
   </div>
 </div>
 
+
 {% endif %}
 {% endfor %}
+
+
+
 
 {% endblock %}

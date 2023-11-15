@@ -5,7 +5,7 @@ def add_variable_to_context(request):
     return {'categories': categories}
 def messages_num(request):
     if request.user.is_authenticated:
-        messages = Messages.objects.filter(receiver_id=request.user, reply=False).count()
+        messages = Messages.objects.filter(receiver_id=request.user, read=False).count()
     else:
         messages = 0
     return {'messages': messages}
@@ -17,7 +17,7 @@ def navigation_links(request):
         try:
             user_profile = Profile.objects.get(user=request.user)
             user_type = user_profile.type
-            messages = Messages.objects.filter(receiver_id=request.user, reply=False).count()
+            messages = Messages.objects.filter(receiver_id=request.user, read=False).count()
         except Profile.DoesNotExist:
             user_type = None
     context = {
