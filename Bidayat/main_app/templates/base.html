@@ -41,7 +41,38 @@
         {% else %}
 
         <div class="mydropdown"><button class="mydropbtn"><a href="{%  url 'login' %}"> Login </button></a> </div>
-        <div class="mydropdown"><button class="mydropbtn"> <a href="{%  url 'signup' %}"> Sign Up </button></a> </div>
+       <div class="mydropdown"> <div class="mydropbtn" id="popupButton"><button class="mydropbtn"> Sign Up </button></div></div>
+
+        
+
+        <style>
+          .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            padding: 4%;
+            font-size: 22px;
+            text-align: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        </style>
+        
+        
+        <script>
+        popupButton.onclick = function () {
+            popupContainer.style.display = 'block';
+        };
+        
+        closeButton.onclick = function () {
+            popupContainer.style.display = 'none';
+        };
+        
+        </script>
 
 
         {% endif %}
@@ -52,6 +83,14 @@
 
   </header>
   <main>
+    <div id="popupContainer" class="popup">
+      <div class="popup-content">
+          <span class="close" id="closeButton">&times;</span>
+          <p>Tell us more about yourslef:</p>
+          <button class="btn"><a href="{% url 'customer' %}"> Customer </a></button> 
+         <button class="btn"><a href="{% url 'vendor' %}"> Vendor </a></button> 
+      </div>
+  </div>
     {% block content %}
 
     {% endblock %}

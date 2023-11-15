@@ -59,7 +59,8 @@
   {%load static %}
   {% for work_image in work.images.all %}
   {% with image_path=work_image.image.url|cut:'main_app/' %}
-  <img src="{{ image_path }}" class="WorkDetail-Img" alt="Work Image">
+  <img  src="{{ image_path }}" class="WorkDetail-Img" alt="Work Image">
+
   {% endwith %}
   {% endfor %}
 
@@ -118,6 +119,11 @@
   flex-direction: column;
   width: 30%;
 }
+
+
+
+
+
 
 </style>
 

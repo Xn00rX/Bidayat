@@ -2,19 +2,45 @@
 
 {% block content %}
 
-<h1>Sign Up</h1>
+<!-- <h1>Sign Up</h1> -->
 
 {% if error_message %}
 <p class="red_text">{{error_message}} </p>
 {% endif %}
 
-<form action="{% url 'vendor' %}" enctype="multipart/form-data" method="POST">
+
+<div class="addwork-header reveal">
+  <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png"  width="20" ></div>
+ 
+  <h2>Join us...</h2>
+
+  <p>"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
+</div>
+
+
+
+
+
+<div class="signup-page">
+<div class="signup-cont reveal" style="background-color: white;">
+  <div class="form-cont">
+<form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST">
   {% csrf_token %}
+  
+
   {{ form.as_p }}
+
+
   {{ profileForm.as_p }}
 
   <input type="submit" class="btn" value="Signup">
 </form>
+</div>
+<div class="form-img"><img src="https://i.postimg.cc/fRdR6n0r/photo-1525772764200-be829a350797.jpg" class="form-image" ></div>
+</div>
+</div>
+
+
 <script>
   
 let typeFile = document.getElementById('id_type')

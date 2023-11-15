@@ -86,10 +86,11 @@ class MessageList(ListView):
   model = Messages
 
   def get_queryset(self):
-        queryset = super().get_queryset()
-        # messages = Messages.objects.filter(receiver_id=self.request.user,reply=False).count()
-        # print(messages)
-        return queryset.filter(receiver_id=self.request.user)
+        # queryset = super().get_queryset()
+        s2=Messages.objects.filter(receiver_id=self.request.user)
+        s1=Messages.objects.filter(sender_id=self.request.user)
+        s3 = s2 | s1 
+        return s3
 
 
 class MessageCreate(CreateView):
@@ -307,7 +308,7 @@ def vendorSignup(request):
     form = CreateUserForm()
     profileForm = VendorSignUp()
     context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
-    return render(request, 'registration/signup.html', context)
+    return render(request, 'registration/vendor.html', context)
 
 
 
