@@ -30,8 +30,7 @@ urlpatterns=[
   path('users/<int:user_id>/update/', views.user_update , name='user_update' ),
   
   
-  path('accounts/customer/signup/',views.customerSignup, name='customer'),
-  path('accounts/vendor/signup/',views.vendorSignup, name='vendor'),
+
   
   
   
@@ -49,6 +48,6 @@ urlpatterns=[
 
 
      
-  path('choice/',views.choices, name='popup'),
+ 
   # path('/', views.categories_base, name='index'),
 ]

@@ -1,60 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% load static %}
-
-
-<div class="profile-box reveal">
+<div>
   {%load static %}
-  <div class="editprofile-img" ><img width="50%" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/></div>
-
-
-
-<form method="POST" action="{% url 'user_detail' user.id %}" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ user_form.as_p }}
-
-
-
-
-  <div class="form-group">
-    <p  for="id_file">File Upload:</p>
-    <input type="file" name="file" id="id_file">
+  <img width="100px" height="100px" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
   </div>
-  <p><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
-  <div class="editprofile-img" >
-  <input type="submit" class="btn" value="Update">
-  <button class="btn"<a href="{% url 'user_detail' user.id %}">Cancel</a></button></div>
-
-</form>
-</div>
-<style>
-  .profile-box {
-    background-color: #0F202A;
-    color: white;
-    text-align: left;
-    justify-content: center;
-    width: 50%;
-    margin: auto;
-    font-size: 22px;
-    padding: 2.7%;
-    margin-bottom: 5%;
-  }
-
-  .editprofile-img{
-    text-align: center;
-    margin: auto;
-  }
+  <form method="POST" action="{% url 'user_update' user.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <div class="form-group">
+      <label for="id_file">File Upload:</label>
+      <input type="file" name="image" >
+    </div>
+    <input type="submit" value="Update">
 
 
+  </form>
 
-</style>
-
-<script>
-  let typeFile = document.getElementById('id_type')
-  M.FormSelect.init(typeFile)
-  let serviceFile = document.getElementById('id_service')
-  M.FormSelect.init(serviceFile)
-</script>
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      let typeFile = document.getElementById('id_type');
+      M.FormSelect.init(typeFile);
+      
+      let serviceFile = document.getElementById('id_service');
+      M.FormSelect.init(serviceFile);
+    });
+  </script>
 {% endblock %}
