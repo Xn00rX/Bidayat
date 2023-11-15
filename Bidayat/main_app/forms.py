@@ -2,6 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Review
 
 from .models import Profile,Messages
 
@@ -16,7 +17,6 @@ class ProfileSignUp(ModelForm):
         model = Profile
         fields = ['image']
         
-  
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -44,3 +44,8 @@ class MessageForm(ModelForm):
     class Meta:
         model = Messages
         fields = ['email','phoneNumber','budget','guestCount','eventType','eventDate','description']
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['review']

@@ -31,12 +31,12 @@
     <button class="btn"><a href="{% url 'user_update' user.id %}" > Edit </a></button>
 
 <br>
-    {% for work in userWork %}
+    <!-- {% for work in userWork %}
     <a href="{% url 'workdetail' work.id %}">
       <h5 class="card-title">{{ work.title }}</h5>
     </a>
     {{work.description}}
-    {% endfor %}
+    {% endfor %} -->
 
   {% else %}
     <p>No profile found for this user.</p>
@@ -45,7 +45,94 @@
 
 
 
-  <style>
+
+<div class="container">
+
+  {% for work in userWork %}
+ 
+    <div class="card reveal">
+      <div class="card-body">
+        <div class="image-container">
+          <div class="image-slider">
+            {% for work_image in work.images.all %}
+              {% with image_path=work_image.image.url|cut:'main_app/' %}
+                <img class="card-img" src="{{ image_path }}" alt="Work Image">
+              {% endwith %}
+            {% endfor %}
+          </div>
+        </div>
+        
+        <a href="{% url 'workdetail' work.id %}">
+          <h5 class="card-title">{{ work.title }}</h5>
+        </a>
+  
+      </div>
+    </div>
+
+  {% endfor %}
+
+</div>
+
+<br><br>
+<form method="post" action="{% url 'review_create' profile.user.id %}">
+  {% csrf_token %}
+  {{review_form.review.label}}
+  {{review_form.review}}
+  <input type="submit" value="submit" />
+</form>
+
+
+{% for review in reviews %}
+{{review.customer}}
+{{review.review}}
+<br>
+{% endfor %}
+
+<style>
+  .container {
+    margin-top: 3%;
+    margin-bottom: 5%;
+  
+
+  }
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height:50%;
+
+  }
+
+  .image-slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out ;
+  }
+
+  .card-img {
+    height: 50vh;
+    cursor: pointer;
+  }
+
+
+  .card-title {
+    text-align: left;
+  }
+  
+  .card {
+    height: 440px;
+    width: 300px;
+    box-shadow: none;
+    background-color: #F5F5F3;
+    display: inline-block;
+    margin: auto;
+    margin-bottom: 5%;
+  }
+
+  .card a{
+    color: black;
+  }
+
     .profile-box {
       background-color: #0F202A;
       color: white;
@@ -57,5 +144,35 @@
       padding: 2.7%;
       margin-bottom: 5%;
     }
-  </style>
+  
+
+    
+
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+   const imageSliders = document.querySelectorAll('.image-slider');
+
+   imageSliders.forEach(slider => {
+     let imageIndex = 0;
+     const images = slider.querySelectorAll('.card-img');
+     
+     
+     if (images.length > 0) {
+       const imageWidth = images[0].clientWidth;
+
+       const animateImages = () => {
+         imageIndex = (imageIndex + 1) % images.length;
+         slider.style.transform = `translateX(-${imageIndex * imageWidth}px)`;
+       };
+
+       setInterval(animateImages, 5000);
+     }
+   });
+ });
+
+
+</script>
+
+
 {% endblock %}

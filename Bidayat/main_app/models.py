@@ -76,10 +76,8 @@ class WorkImage(models.Model):
     image = models.ImageField(upload_to='main_app/static/uploads') 
 
 
-# class ReviewRating(models.Model):
-#     customer=models.ForeignKey(User, on_delete=models.CASCADE,related_name='customer')
-#     vendor=models.ForeignKey(User, on_delete=models.CASCADE, related_name='customer')
-#     review=models.TextField(max_length=500)
-#     rating = models.FloatField()
-#     ip = models.CharField(max_length=20)
-#     updated_at=models.DateTimeField(auto_now_add=True)
+class Review(models.Model):
+    customer=models.ForeignKey(User, on_delete=models.CASCADE,related_name='customer')
+    vendor=models.ForeignKey(User, on_delete=models.CASCADE, related_name='vendor')
+    review=models.TextField(max_length=500)
+    updated_at=models.DateTimeField(auto_now_add=True)
