@@ -22,7 +22,6 @@ urlpatterns=[
   path('messages/<int:pk>/delete',views.MessageDelete.as_view(),name='message_delete'),
   path('messages/reply/<int:workUser_id>/<int:message_id>/',views.MessageReply.as_view(),name='message_reply'),
   
-  
   path('detail/user_detail/<int:user_id>/', views.user_detail, name='user_detail'),
   path('accounts/signup/',views.signup,name='signup'),
   path('change_password/', auth_views.PasswordChangeView.as_view(), name='password_change'),
@@ -51,7 +50,10 @@ urlpatterns=[
   
 
 
-     
- 
+  path('vendor/<int:vendor_id>/',views.add_review,name='review_create'),
+
+
+  
+
   # path('/', views.categories_base, name='index'),
 ]

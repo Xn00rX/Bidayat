@@ -44,7 +44,7 @@ class WorkDelete(LoginRequiredMixin, DeleteView):
 
 class CategoryCreate(CreateView):
   model = Category
-  fields = ['name', 'image']
+  fields = ['name']
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
@@ -53,7 +53,7 @@ class CategoryCreate(CreateView):
 
 class CategoryUpdate(UpdateView):
   model = Category
-  fields = ['name', 'image']
+  fields = ['name']
 
 
 
@@ -70,12 +70,13 @@ def user_detail(request, user_id):
         user = User.objects.get(id=user_id)
         # works=Work.objects.all()
         # print(works)
-
+        review_form = ReviewForm()
         userWorks=Work.objects.filter(users__id__in = [user_id])
         print(userWorks)
-
+        reviews=Review.objects.filter(vendor_id=user_id)
+        print('re',reviews)
         profile = Profile.objects.get(user=user)
-        return render(request, 'detail/user_detail.html', {'profile': profile,'userWork':userWorks})
+        return render(request, 'detail/user_detail.html', {'profile': profile,'userWork':userWorks,'review_form':review_form,'reviews':reviews})
     except User.DoesNotExist or Profile.DoesNotExist:
         return render(request, 'detail/user_not_found.html')
 
@@ -205,8 +206,6 @@ def works_detail(request, work_id):
   # print('workUser',workUser)
   users_service=Profile.objects.filter(user_id__in=work_users.all())
   # print('userServes',users_service)
-
-
   # return render(request, 'works/detail.html', {'work': work, 'workUser':workUser,'userService':userService})
   return render(request, 'works/detail.html', {'work': work,' work_users': work_users,'users_service':users_service})
 
@@ -314,3 +313,19 @@ def vendorSignup(request):
     profileForm = VendorSignUp()
     context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
     return render(request, 'registration/vendor.html', context)
+
+
+
+def add_review(request, vendor_id):
+    form=ReviewForm(request.POST)
+    print(request.user.id)
+    print(vendor_id)
+    customer = User.objects.get(id=request.user.id)
+    vendor = User.objects.get(id=vendor_id)
+    if form.is_valid():
+      new_review = form.save(commit=False)
+      new_review.customer = customer
+      new_review.vendor = vendor
+      new_review.save()
+      return redirect('user_detail', vendor_id)
+
