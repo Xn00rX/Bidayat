@@ -2,63 +2,127 @@
 
 {% block content %}
 
-<h1> {{ work.title }} </h1>
+<div class="addwork-header">
+  <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png"  width="20" ></div>
+ 
+  <h2>Stories to tell...</h2>
 
+  <p>"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
+</div>
 
+<div class="allrow">
+  
+  
+  <div class="card-info">
+    {% for user in work.users.all %}
+    
+    <div class="card ">
 
-  <div>
-  <p>Description: {{ work.description }}</p>
-
-  <p> Type: {{ work.worktype }} </p>
-  <p> Category: {{ work.category }} </p>
-
-  {%load static %}
-  {% for work_image in work.images.all %}7
-  {% with image_path=work_image.image.url|cut:'main_app/' %}
-  <img src="{{ image_path }}" alt="Work Image">
-  {% endwith %}
-  {% endfor %}
-
-  </div>
-
-  <div>
-    <a href="{% url 'works_update' work.id  %}">Edit</a>
-    <a href="{% url 'works_delete' work.id %}">Delete</a>
-
-  </div>
-
-
-{% for user in work.users.all %}
-<div class="col s12 m8 offset-m2 l6 offset-l3">
-  <div class="card-panel grey lighten-5 z-depth-1">
-    <div class="row valign-wrapper">
-      <div class="col s2">
         {% for u in users_service.all %}
           {% if u.user_id == user.id  %}
             {% load static %}  
-            <img src="{% static u.image|cut:'main_app/static/' %}" class="circle responsive-img"/>
+        <div class="box-img"><img src="{% static u.image|cut:'main_app/static/' %}" class="circle responsive-img"/></div> 
           {% endif %}
         {% endfor %}
-      </div>
-      <div class="col s10">
-        <div class="card-content">
-          <span class="card-title">{{user.username}}</span>
-          <p>{{user.id}}</p>
+   
+   
+          <p>{{user.username}}</p>
           {% for u in users_service.all %}
             {% if u.user_id == user.id  %}
               <p>{{u.get_service_display}}</p>
             {% endif %}
           {% endfor %}
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-        </div>
-        <div class="card-action">
+     
+          <div>
           <a href="{% url 'user_detail' user.id %}"><button class="btn">Profile</button></a>
           <a href="{% url 'message_create' user.id %}"><button class="btn">Message</button></a>
-        </div> 
-      </div>
-    </div>
+          </div>
+    </div>    
+    {% endfor %}
   </div>
+
+  
+<div class="work-info">
+  <h1> {{ work.title }} </h1>
+  
+    <p>Description: {{ work.description }}</p>
+  
+    <p> Type: {{ work.worktype }} </p>
+    <p> Category: {{ work.category }} </p>
+  
+    {%load static %}
+    {% for work_image in work.images.all %}
+    {% with image_path=work_image.image.url|cut:'main_app/' %}
+    <img  src="{{ image_path }}" class="WorkDetail-Img" alt="Work Image">
+  
+    {% endwith %}
+    {% endfor %}
+  
+  
+  <div>
+      <button class="btn"><a href="{% url 'works_update' work.id  %}">Edit</a></button>
+      <button class="btn"><a href="{% url 'works_delete' work.id %}">Delete</a></button>
+    </div>
+  
+  </div>
+
 </div>
-{% endfor %}
+
+
+
+
+
+
+<style>
+
+.card {
+  width: 260px;
+  height: 240px;
+  justify-content: center;
+  text-align: center;
+  border-radius: 15px;
+  font-size: 17px;
+  line-height: 8px;
+  margin-left: 2%;
+  box-shadow: none;
+  margin-right: 2%;
+  padding:0
+
+}
+
+.box-img {
+  width: 100px;
+  padding: 0;
+  margin: auto;
+  padding-top: 5%;
+}
+
+.work-info {
+  display: inline-block;
+  width: 65%;
+}
+
+
+.allrow {
+  display: flex;
+  flex-direction: row;
+  /* background-color: blue; */
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  /* background-color: aqua; */
+  margin: auto;
+}
+
+
+
+
+
+
+</style>
+
+
 {% endblock %}

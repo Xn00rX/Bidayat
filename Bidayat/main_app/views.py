@@ -38,7 +38,7 @@ class WorkUpdate(LoginRequiredMixin, UpdateView):
 
 class WorkDelete(LoginRequiredMixin, DeleteView):
   model = Work
-  success_url = '/works/'
+  success_url = '/'
 
 
 
@@ -152,21 +152,36 @@ def signup(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         profileForm = ProfileSignUp(request.POST, request.FILES)
-        if form.is_valid() and profileForm.is_valid():
+        vendorForm = VendorSignUp(request.POST, request.FILES)
+
+        if form.is_valid():
             user = form.save()
-            profile = profileForm.save(commit=False)
-            profile.user = user
-            profile.save()
+            if vendorForm.is_valid():
+                profile = vendorForm.save(commit=False)
+                profile.type = 'V'
+                profile.user = user
+                profile.save()
+            elif profileForm.is_valid():
+                profile = profileForm.save(commit=False)
+                profile.user = user
+                profile.save()
+            else:
+                error_message = 'Invalid Signup'
+                print(form.errors)
+                print(profileForm.errors)
+                print(vendorForm.errors)
+                return render(request, 'registration/signup.html', {'form': form, 'profileForm': profileForm, 'vendorForm': vendorForm, 'error_message': error_message})
             login(request, user)
             return redirect('/')
         else:
             error_message = 'Invalid Signup'
-            print(form.errors)  # Print form errors to console
-            print(profileForm.errors)  # Print profileForm errors to console
+            print(form.errors)
 
     form = CreateUserForm()
     profileForm = ProfileSignUp()
-    context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
+    vendorForm = VendorSignUp()
+
+    context = {'form': form, 'profileForm': profileForm, 'vendorForm': vendorForm, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
 
 
@@ -214,18 +229,28 @@ def categories_detail(request, category_id):
 
 
 
+@login_required
 def user_update(request, user_id):
     user = User.objects.get(id=user_id)
     profile = Profile.objects.get(user=user)
 
     if request.method == 'POST':
+        print(request.FILES)  # Check the structure of request.FILES
         user_form = UserForm(request.POST, instance=user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
+
+
+            if 'image' in request.FILES:
+                profile.image = request.FILES['image']
+            
             profile_form.save()
-            return redirect('user_detail', user_id=user.id )
+            return redirect('user_detail', user_id=user.id)
+        else:
+            print(user_form.errors)
+            print(profile_form.errors)
     else:
         user_form = UserForm(instance=user)
         profile_form = ProfileForm(instance=profile)
@@ -237,9 +262,9 @@ def user_update(request, user_id):
         'profile': profile
     })
     
+    
 
-def choices(request):
-  return render(request,'registration/popup.html')
+
     
 def customerSignup(request):
     error_message = ''

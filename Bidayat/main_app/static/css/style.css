@@ -15,7 +15,8 @@
 body {
   margin:0;
   color: black!important;
-  background-color: #fafaf8;
+  background-color: #F5F5F3;
+  font-family: Audery-Normal;
 }
 
 .mynavbar {
@@ -89,6 +90,10 @@ body {
 
 label{
   color: blue;
+}
+
+.btn a {
+  color: white;
 }
 
 
@@ -228,9 +233,10 @@ label{
 
 label{
   font-family: Audery-Normal;
-  color: black!important;
   font-size: 19px;
 }
+
+
 /* Signup Form Ends here */
 
 
@@ -246,7 +252,7 @@ label{
   display: block;
   text-align: center;
   border-radius: 2px;
-  background-color: #f2f2f2;
+  background-color: white;
   margin-bottom: 10%;
   display: flex;
   width: 80%;
@@ -358,8 +364,8 @@ label{
 .reviews{
   display: block;
   text-align: justify;
-  margin-bottom: 10%;
   display: flex;
+  background-color: white;
   font-family: Audery-Normal;
   font-size: 20px;
   width: 100%;
@@ -396,12 +402,14 @@ label{
 .rev-h{
   display: flex;
   justify-content: center;
+  background-color: white;
 }
 
 
 .rev-h h1{
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   margin: auto;
+
 }
 
 /* Reviews Styling ends here */
@@ -416,4 +424,153 @@ label{
   font-family: Audery-Normal;
   font-size: 32px;
 
+}
+
+
+
+/* VIP CLIENTS Starts here */
+.vip-clients{
+  text-align: justify;
+  margin-bottom: 10%;
+  display: flex;
+  background-color: #F5F5F3;
+  width: 100%;
+  padding-left: 9%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  justify-content: center;
+  
+}
+
+.vip-heading {
+  text-align: justify;
+  display: flex;
+  background-color: #F5F5F3;
+  flex-direction: column;
+  font-family: Audery-Normal;
+  font-size: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.vip-heading p, img{
+  margin: auto;
+}
+.vip-heading img{
+  padding-bottom: 2%;
+  padding-top: 2%;
+}
+
+
+
+.logo1 {
+  display: inline-block;
+  width: 420px;
+  padding-top: 2%;
+
+  
+}
+
+.logo2 {
+  display: inline-block;
+  width: 420px;
+  padding-top: 2%;
+ 
+}
+
+.logo3 {
+  display: inline-block;
+  width: 420px;
+  padding-top: 2%;
+  
+}
+
+.logo4 {
+  display: inline-block;
+  width: 420px;
+  padding-top: 2%;
+
+}
+
+/* VIP CLIENTS ends here */
+
+
+/* Ease in animation starts here */
+@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
+
+.reveal{
+  transform: translateY(150px);
+  opacity: 0;
+  transition: 1s all ease;
+}
+
+.reveal.active{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Ease in animation ends here */
+
+
+/* Work Detail Page starts here */
+
+.WorkDetail-Img {
+  height: 200px;
+}
+
+/* Work Detail Page ends here */
+
+
+/* Ctaegory Work Page starts here */
+.portfolio-cont {
+  background-image: url('https://i.ibb.co/rxfbfGq/photo-1524777313293-86d2ab467344.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 10%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  color: white;
+  margin-bottom: 0;
+}
+
+.portfolio-q {
+  background-color: white;
+  margin-top: 0;
+  padding: 5%;
+  display: flex;
+  font-size: 18px;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  color: black;
+}
+
+.portfolio-q img{
+  padding-bottom: 2%;
+}
+
+
+/* Ctaegory Work Page endss here */
+
+.checkform {
+  color: black;
+}
+
+.checkform label {
+  color: black;
+}
+
+.checkform1 {
+  color: white;
+}
+
+.checkform1 label {
+  color: white;
+}
+
+.checkform1 input {
+  color: white;
 }
