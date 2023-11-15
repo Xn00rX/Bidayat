@@ -42,7 +42,7 @@ class WorkUpdate(LoginRequiredMixin, UpdateView):
 
 class WorkDelete(LoginRequiredMixin, DeleteView):
   model = Work
-  success_url = '/works/'
+  success_url = '/'
 
 
 
@@ -316,7 +316,7 @@ def vendorSignup(request):
     form = CreateUserForm()
     profileForm = VendorSignUp()
     context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
-    return render(request, 'registration/signup.html', context)
+    return render(request, 'registration/vendor.html', context)
 
 
 

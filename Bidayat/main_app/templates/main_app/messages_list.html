@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Inbox</h3>
+<div class="inbox-h"><h3>INBOX</h3></div>
 {% for message in messages_list %}
 {% if message.receiver_id == user.id %}
 
 <div class="col s12 m8 offset-m2 l6 offset-l3">
-  <div class="card-panel grey lighten-5 z-depth-1">
+  <div class="card-panel grey lighten-5 z-depth-1 inbox-box">
     <div class="row valign-wrapper">
       <div class="col s2">
         {% load static %}
-        <img src="{% static message.sender.Profile.image|cut:'main_app/static/' %}" class="circle responsive-img"> 
+        <img src="{% static message.sender.Profile.image|cut:'main_app/static/' %}" class="circle responsive-img"  > 
         <!--  -->
       </div>
       <div class="col s10">
@@ -33,12 +33,12 @@
               <td>{{message.eventType}}</td>
               <!-- <td>{{message.reply}}</td> -->
               {% if message.reply == False %}
-              <td><a href="{% url 'message_reply'  message.sender.id message.id %}" class="btn-floating pulse"><i class="material-icons">reply</i></a></td>
+              <td><a href="{% url 'message_reply'  message.sender.id message.id %}" class="btn-floating pulse replybtn"><i class="material-icons">reply</i></a></td>
               {% endif %}
               {% if message.read == False %}
-              <td><a href="{% url 'message_detail' message.id %}" class="btn-floating pulse"><i class="material-icons">email</i></a></td>
+              <td><a href="{% url 'message_detail' message.id %}" class="btn-floating pulse replybtn"><i class="material-icons ">email</i></a></td>
               {% else %}
-              <td><a href="{% url 'message_detail' message.id %}" class="btn-floating pulse"><i class="material-icons">drafts</i></a></td>
+              <td><a href="{% url 'message_detail' message.id %}" class="btn-floating pulse replybtn"><i class="material-icons">drafts</i></a></td>
               {% endif %}
             </tr>
           </tbody>
@@ -53,12 +53,12 @@
 {% endfor %}
 
 
-<h3>sent</h3>
+<div class="inbox-h"><h3>SENT</h3></div>
 {% for message in messages_list %}
 {% if message.sender_id == user.id %}
 
 <div class="col s12 m8 offset-m2 l6 offset-l3">
-  <div class="card-panel grey lighten-5 z-depth-1">
+  <div class="card-panel grey lighten-5 z-depth-1 inbox-box">
     <div class="row valign-wrapper">
       <div class="col s2">
         {% load static %}
@@ -82,7 +82,7 @@
               <td>{{message.email}}</td>
               <td>{{message.eventType}}</td>
               <td>{{message.reply}}</td>
-              <td><a href="{% url 'message_detail' message.id %}" class="btn-floating pulse"><i class="material-icons">description</i></a>
+              <td><a href="{% url 'message_detail' message.id %}" class="btn-floating pulse replybtn"><i class="material-icons">description</i></a>
               </a></td>
             </tr>
           </tbody>
@@ -96,7 +96,27 @@
 {% endif %}
 {% endfor %}
 
+<style>
+  .inbox-box {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 2%;
+    font-size: 22px;
+    box-shadow: none;
+    border-radius: 20px;
+  }
 
+  .replybtn {
+    background-color: black;
+  }
+
+  .inbox-h {
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+  }
+
+</style>
 
 
 {% endblock %}

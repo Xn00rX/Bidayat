@@ -44,6 +44,10 @@ urlpatterns=[
   path('works/create/', views.WorkCreate.as_view(), name='works_create'),
   path('works/<int:pk>/update', views.WorkUpdate.as_view(), name='works_update'),
   path('works/<int:pk>/delete', views.WorkDelete.as_view(), name='works_delete'),
+
+
+  path('accounts/customer/signup/',views.customerSignup, name='customer'),
+  path('accounts/vendor/signup/',views.vendorSignup, name='vendor'),
   
 
 

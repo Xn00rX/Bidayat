@@ -1,23 +1,55 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="addwork-header reveal">
+  <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
+
+  <h2 class="reveal">We are proud of our team ...</h2>
+
+  <p class="reveal">"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
+</div>
+<div class="profile-box reveal">
+  <h2>Update Personal Profile</h2>
 <div>
   {%load static %}
-  <img width="100px" height="100px" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
+  <div class="profile-img"><img width="50%"  src="{% static profile.image|cut:'main_app/static/' %}" alt=""/></div>
   </div>
-  <form method="POST" action="{% url 'user_update' user.id %}" enctype="multipart/form-data">
+  <form method="POST" action="{% url 'user_update' user.id %}" enctype="multipart/form-data" class="checkform1">
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
     <div class="form-group">
       <label for="id_file">File Upload:</label>
-      <input type="file" name="image" >
+      <input  type="file" name="image" >
     </div>
-    <input type="submit" value="Update">
+    <input class="btn" type="submit" value="Update">
+    
 
 
   </form>
+  </div>
+  <style>
+    .profile-box {
+      background-color: #0F202A;
+      color: white;
+      text-align: left;
+      justify-content: center;
+      width: 50%;
+      margin: auto;
+      font-size: 22px;
+      padding: 2.7%;
+      margin-bottom: 5%;
+    }
+    .profile-img{
+      margin: auto;
+      text-align: center;
+    }
+    
+  
 
+
+
+  </style>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       let typeFile = document.getElementById('id_type');

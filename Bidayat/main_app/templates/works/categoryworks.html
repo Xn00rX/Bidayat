@@ -16,7 +16,7 @@
 
 
   <div class="container">
-    <div class="row">
+
       {% for work in works %}
      
         <div class="card reveal">
@@ -39,7 +39,7 @@
         </div>
 
       {% endfor %}
-    </div>
+ 
   </div>
 
 
@@ -47,6 +47,7 @@
     .container {
       margin-top: 3%;
       margin-bottom: 5%;
+    
   
     }
     .image-container {
@@ -56,11 +57,6 @@
       overflow: hidden;
       height:50%;
 
-    }
-
-    .row {
-      display: flex;
-      
     }
 
     .image-slider {
@@ -73,6 +69,7 @@
       cursor: pointer;
     }
 
+
     .card-title {
       text-align: left;
     }
@@ -84,26 +81,38 @@
       background-color: #F5F5F3;
       display: inline-block;
       margin: auto;
+      margin-bottom: 5%;
     }
 
     .card a{
       color: black;
     }
 
+    
+
 
   </style>
-  <script>
-    const imageSlider = document.querySelectorAll('.image-slider');
-    imageSlider.forEach(slider => {
-      let imageIndex = 0;
-      const images = slider.querySelectorAll('.card-img');
-      const imageWidth = images[0].clientWidth;
-
-      slider.addEventListener('click', () => {
-        imageIndex = (imageIndex + 1) % images.length;
-        slider.style.transform = `translateX(-${imageIndex * imageWidth}px)`;
-      });
-    });
-  </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+     const imageSliders = document.querySelectorAll('.image-slider');
+ 
+     imageSliders.forEach(slider => {
+       let imageIndex = 0;
+       const images = slider.querySelectorAll('.card-img');
+       
+       
+       if (images.length > 0) {
+         const imageWidth = images[0].clientWidth;
+ 
+         const animateImages = () => {
+           imageIndex = (imageIndex + 1) % images.length;
+           slider.style.transform = `translateX(-${imageIndex * imageWidth}px)`;
+         };
+ 
+         setInterval(animateImages, 5000);
+       }
+     });
+   });
+ </script>
 </style>
 {% endblock %}

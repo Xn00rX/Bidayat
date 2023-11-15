@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h1>Message Details</h1>
+<div class="inbox-h reveal "><h1>Message Details</h1></div>
 
-<div>
+<div class="inbox-box reveal">
   <span>Email: {{message.email}}</span>
   <p>Phone Number: {{message.phoneNumber}}</p>
   <P>Budget: {{message.budget}}</P>
@@ -15,14 +15,40 @@
   <p>Sender: {{message.sender}}</p>
   <p>Receiver:{{message.receiver.id}}</p>
 <p>{{message.id}}</p>
-</div>
+
 <div class="card-action">
-  {% if message.reply == False %}
-  <a href="{% url 'message_update' message.id %}" class="btn-floating pulse"><i class="material-icons">edit</i></a>
-  <a href="{% url 'message_delete' message.id %}" class="btn-floating pulse"><i class="material-icons">delete</i></a>
-  <a href="{% url 'message_reply'  message.sender.id message.id %}" class="btn-floating pulse"><i class="material-icons">reply</i></a>
+{% if message.reply == False %}
+<a href="{% url 'message_update' message.id %}" class="btn-floating pulse replybtn"><i class="material-icons">edit</i></a>
+  <a href="{% url 'message_delete' message.id %}" class="btn-floating pulse replybtn"><i class="material-icons ">delete</i></a>
+  <a href="{% url 'message_reply'  message.sender.id message.id %}" class="btn-floating pulse replybtn"><i class="material-icons">reply</i></a>
   {% endif %}
+
 </div>
+</div>
+
+<style>
+  .inbox-box {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 2%;
+    font-size: 22px;
+    box-shadow: none;
+    background-color: white;
+    padding: 3%;
+    border-radius: 20px;
+  }
+
+  .replybtn {
+    background-color: black;
+  }
+
+  .inbox-h {
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+  }
+
+</style>
 
 
 
