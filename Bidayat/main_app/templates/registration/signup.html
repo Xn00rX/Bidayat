@@ -3,7 +3,45 @@
 {% block content %}
 
 <!-- <h1>Sign Up</h1> -->
+<style>
 
+  .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid #ccc;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 1;
+      max-height: 80vh; 
+      overflow-y: auto; 
+  }
+
+  /* Styles for the Close Button */
+  .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+  /* Styles for Popup Content */
+  .popup-content {
+      text-align: center;
+  }
+
+
+</style>
 {% if error_message %}
 <p class="red_text">{{error_message}} </p>
 {% endif %}
@@ -21,31 +59,119 @@
 
 
 
-<div class="signup-page">
-<div class="signup-cont">
-  <div class="form-cont">
-<form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST">
-  {% csrf_token %}
-  
-
-  {{ form.as_p }}
-
-
-  {{ profileForm.as_p }}
-
-  <input type="submit" class="btn" value="Signup">
-</form>
-</div>
-<div class="form-img"><img src="https://i.postimg.cc/fRdR6n0r/photo-1525772764200-be829a350797.jpg" class="form-image" ></div>
-</div>
+<div id="popupContainer" class="popup">
+  <div class="popup-content">
+      <span class="close" id="closeButton">&times;</span>
+      <p>Choose an option:</p>
+      <button id="customerButton">Customer</button>
+      <button id="vendorButton">Vendor</button>
+  </div>
 </div>
 
+<!-- Customer Signup Form Container -->
+<div id="customerFormContainer" class="popup">
+  <div class="popup-content">
+      <span class="close" id="customerCloseButton">&times;</span>
+      <!-- Customer Signup Form Goes Here -->
+      <p>Customer Signup Form</p>
+      <form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{form.username.label}} {{form.username}}
+        {{form.email.label}} {{form.email}}
+        {{form.password1.label}} {{form.password1}}
+        {{form.password2.label}} {{form.password2}}
+        {{ profileForm.as_p }}
+        <input type="submit" class="btn" value="Signup">
+      </form>
+  </div>
+</div>
+
+<!-- Vendor Signup Form Container -->
+<div id="vendorFormContainer" class="popup">
+  <div class="popup-content">
+      <span class="close" id="vendorCloseButton">&times;</span>
+      <!-- Vendor Signup Form Goes Here -->
+      <p>Vendor Signup Form</p>
+      <form action="{% url 'signup' %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{form.username.label}} {{form.username}}
+        {{form.email.label}} {{form.email}}
+        {{form.password1.label}} {{form.password1}}
+        {{form.password2.label}} {{form.password2}}
+        {{ vendorForm.as_p }}
+        <input type="submit" class="btn" value="Signup">
+      </form>
+   
+    
+
+  </div>
+</div>
 
 <script>
-  
-let typeFile = document.getElementById('id_type')
+  // Get the elements
+
+
+  let typeFile = document.getElementById('id_type')
 M.FormSelect.init(typeFile)
 let serviceFile = document.getElementById('id_service')
 M.FormSelect.init(serviceFile)
+
+
+  var popupContainer = document.getElementById('popupContainer');
+  var closeButton = document.getElementById('closeButton');
+
+  var customerButton = document.getElementById('customerButton');
+  var vendorButton = document.getElementById('vendorButton');
+
+  var customerFormContainer = document.getElementById('customerFormContainer');
+  var vendorFormContainer = document.getElementById('vendorFormContainer');
+
+  var customerCloseButton = document.getElementById('customerCloseButton');
+  var vendorCloseButton = document.getElementById('vendorCloseButton');
+
+  // Event listeners
+  closeButton.onclick = function () {
+      popupContainer.style.display = 'none';
+  };
+
+  customerButton.onclick = function () {
+      customerFormContainer.style.display = 'block';
+      popupContainer.style.display = 'none';
+  };
+
+  vendorButton.onclick = function () {
+      vendorFormContainer.style.display = 'block';
+      popupContainer.style.display = 'none';
+  };
+
+  customerCloseButton.onclick = function () {
+      customerFormContainer.style.display = 'none';
+  };
+
+  vendorCloseButton.onclick = function () {
+      vendorFormContainer.style.display = 'none';
+  };
+
+  // Trigger the popup automatically on page load
+  window.onload = function () {
+      popupContainer.style.display = 'block';
+  };
+
+  // Close popups if the user clicks outside the popup
+  window.onclick = function (event) {
+      if (event.target == popupContainer) {
+          popupContainer.style.display = 'none';
+      }
+
+      if (event.target == customerFormContainer) {
+          customerFormContainer.style.display = 'none';
+      }
+
+      if (event.target == vendorFormContainer) {
+          vendorFormContainer.style.display = 'none';
+      }
+  };
+  
+
 </script>
 {% endblock %}

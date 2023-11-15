@@ -17,11 +17,13 @@ class Messages(models.Model):
   sender = models.ForeignKey(User, on_delete=models.CASCADE,related_name='sender')
   receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reciever')
   reply = models.BooleanField(default=False)
+ 
 
   def get_absolute_url(self):
     return reverse('message_index')
 
 ROLE = (('C', 'Customer'), ('V', 'Vendor'))
+
 SERVICE = (('1', 'Baker'), ('2', 'Photographer'),
             ('3','Event Planner'),('4','Florist'),
             ('5','Invitations and Prints Company'),
@@ -35,7 +37,7 @@ class Profile(models.Model):
     type = models.CharField(max_length=1, choices=ROLE, default=ROLE[0][0])
     image = models.ImageField(upload_to="main_app/static/uploads", default="")
     service = models.CharField(max_length=2, choices=SERVICE, default=SERVICE[0][0])
-    view= models.CharField(max_length=500 , default="none")
+    view = models.CharField(max_length=500 , null=True ,default=None)
 
     def __str__(self):
       return f"{self.user_id} {self.get_service_display()} {self.image}"

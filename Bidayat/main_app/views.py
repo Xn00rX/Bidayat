@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
 from .forms import CreateUserForm , ProfileSignUp,MessageForm
-
+from django.shortcuts import get_object_or_404
 # * means to import everything from the following module
 
 from .models import *      
@@ -46,7 +46,7 @@ class WorkDelete(LoginRequiredMixin, DeleteView):
 
 
 
-class CategoryCreate(CreateView):
+class CategoryCreate(LoginRequiredMixin,CreateView):
   model = Category
   fields = ['name', 'image']
   def form_valid(self, form):
@@ -55,20 +55,20 @@ class CategoryCreate(CreateView):
 
 
 
-class CategoryUpdate(UpdateView):
+class CategoryUpdate(LoginRequiredMixin,UpdateView):
   model = Category
   fields = ['name', 'image']
 
 
 
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin,DeleteView):
   model = Category
 
 
 def home(request):
   return render(request,'index.html')
 
-
+@login_required
 def user_detail(request, user_id):
     try:
         user = User.objects.get(id=user_id)
@@ -82,9 +82,11 @@ def user_detail(request, user_id):
 def about(request):
   return render(request, 'about.html')
 
-class MessageList(ListView):
-  model = Messages
 
+
+
+class MessageList(LoginRequiredMixin,ListView):
+  model = Messages
   def get_queryset(self):
         queryset = super().get_queryset()
         # messages = Messages.objects.filter(receiver_id=self.request.user,reply=False).count()
@@ -92,21 +94,31 @@ class MessageList(ListView):
         return queryset.filter(receiver_id=self.request.user)
 
 
-class MessageCreate(CreateView):
+class MessageCreate(LoginRequiredMixin,CreateView):
   model = Messages
   fields = ['email','phoneNumber','budget','guestCount','eventType','eventDate','description']
 
-
   def form_valid(self,form):
+
+    print("Logged-in User ID:", self.request.user.id)
+    
+    
     form.instance.sender =  self.request.user
     form.instance.receiver= User.objects.get(id=self.kwargs['workUser_id'])
     return super().form_valid(form)
+  
+  
 
-class MessageReply(CreateView):
+
+
+
+
+
+
+class MessageReply(LoginRequiredMixin,CreateView):
   model = Messages
   fields = ['email','phoneNumber','description']
-
-
+  
   def form_valid(self,form):
     form.instance.sender =  self.request.user
     form.instance.receiver= User.objects.get(id=self.kwargs['workUser_id'])
@@ -117,45 +129,68 @@ class MessageReply(CreateView):
     msg.save()
     return super().form_valid(form)
 
-class MessageUpdate(UpdateView):
+class MessageUpdate(LoginRequiredMixin,UpdateView):
   model = Messages
   fields = ['email','phoneNumber','budget','guestCount','eventType','eventDate','description']
 
 
+
+
+
+@login_required
 def Message_detail(request,message_id):
   #SELECT * FROM 'main_app_cat' WHERE id = cat_id
   message = Messages.objects.get(id=message_id)
   return render(request, 'message/detail.html',{'message': message})
 
-class MessageDelete(DeleteView):
+class MessageDelete(LoginRequiredMixin,DeleteView):
   model = Messages
   success_url='/messages/'
 
 
 
-# views.py
-# views.py
+
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         profileForm = ProfileSignUp(request.POST, request.FILES)
-        if form.is_valid() and profileForm.is_valid():
+        vendorForm = VendorSignUp(request.POST, request.FILES)
+
+        if form.is_valid():
             user = form.save()
-            profile = profileForm.save(commit=False)
-            profile.user = user
-            profile.save()
+            if vendorForm.is_valid():
+                profile = vendorForm.save(commit=False)
+                profile.type = 'V'
+                profile.user = user
+                profile.save()
+            elif profileForm.is_valid():
+                profile = profileForm.save(commit=False)
+                profile.user = user
+                profile.save()
+            else:
+                error_message = 'Invalid Signup'
+                print(form.errors)
+                print(profileForm.errors)
+                print(vendorForm.errors)
+                return render(request, 'registration/signup.html', {'form': form, 'profileForm': profileForm, 'vendorForm': vendorForm, 'error_message': error_message})
             login(request, user)
             return redirect('/')
         else:
             error_message = 'Invalid Signup'
-            print(form.errors)  # Print form errors to console
-            print(profileForm.errors)  # Print profileForm errors to console
+            print(form.errors)
 
     form = CreateUserForm()
     profileForm = ProfileSignUp()
-    context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
+    vendorForm = VendorSignUp()
+
+    context = {'form': form, 'profileForm': profileForm, 'vendorForm': vendorForm, 'error_message': error_message}
     return render(request, 'registration/signup.html', context)
+
+
+  
+  
 @login_required
 def works_category(request, category_id):
   works = Work.objects.filter(category=category_id)
@@ -198,22 +233,28 @@ def categories_detail(request, category_id):
 #   categories = Category.objects.all()
 #   return render(request, 'base.html', {'categories': categories})
 
-
-
-
-
+@login_required
 def user_update(request, user_id):
     user = User.objects.get(id=user_id)
     profile = Profile.objects.get(user=user)
 
     if request.method == 'POST':
+        print(request.FILES)  # Check the structure of request.FILES
         user_form = UserForm(request.POST, instance=user)
         profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
+
+
+            if 'image' in request.FILES:
+                profile.image = request.FILES['image']
+            
             profile_form.save()
-            return redirect('user_detail', user_id=user.id )
+            return redirect('user_detail', user_id=user.id)
+        else:
+            print(user_form.errors)
+            print(profile_form.errors)
     else:
         user_form = UserForm(instance=user)
         profile_form = ProfileForm(instance=profile)
@@ -225,55 +266,33 @@ def user_update(request, user_id):
         'profile': profile
     })
     
-
-def choices(request):
-  return render(request,'registration/popup.html')
     
-def customerSignup(request):
-    error_message = ''
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        profileForm = CustomerSignUp(request.POST, request.FILES)
-        if form.is_valid() and profileForm.is_valid():
-            user = form.save()
-            profile = profileForm.save(commit=False)
-            profile.user = user
-            profile.type = 'C'
-            profile.save()
-            login(request, user)
-            return redirect('/')
-        else:
-            error_message = 'Invalid Signup'
-            print(form.errors)  
-            print(profileForm.errors)  
-
-    form = CreateUserForm()
-    profileForm = CustomerSignUp()
-    context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
-    return render(request, 'registration/customer.html', context)
 
 
+# def choices(request):
+#   return render(request,'registration/popup.html')
+    
+# def customerSignup(request):
+#     error_message = ''
+#     if request.method == 'POST':
+#         form = CreateUserForm(request.POST)
+#         profileForm = CustomerSignUp(request.POST, request.FILES)
+#         if form.is_valid() and profileForm.is_valid():
+#             user = form.save()
+#             profile = profileForm.save(commit=False)
+#             profile.user = user
+#             profile.type = 'C'
+#             profile.save()
+#             login(request, user)
+#             return redirect('/')
+#         else:
+#             error_message = 'Invalid Signup'
+#             print(form.errors)  
+#             print(profileForm.errors)  
+
+#     form = CreateUserForm()
+#     profileForm = CustomerSignUp()
+#     context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
+#     return render(request, 'registration/customer.html', context)
 
 
-def vendorSignup(request):
-    error_message = ''
-    if request.method == 'POST':
-        form = CreateUserForm(request.POST)
-        profileForm = VendorSignUp (request.POST, request.FILES)
-        if form.is_valid() and profileForm.is_valid():
-            user = form.save()
-            profile = profileForm.save(commit=False)
-            profile.user = user
-            profile.type = 'V'
-            profile.save()
-            login(request, user)
-            return redirect('/')
-        else:
-            error_message = 'Invalid Signup'
-            print(form.errors) 
-            print(profileForm.errors)  
-
-    form = CreateUserForm()
-    profileForm = VendorSignUp()
-    context = {'form': form, 'profileForm': profileForm, 'error_message': error_message}
-    return render(request, 'registration/signup.html', context)

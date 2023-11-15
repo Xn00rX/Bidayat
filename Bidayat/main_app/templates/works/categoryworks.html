@@ -1,67 +1,52 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container">
+  <div>
     <h1>Work List</h1>
 
-    <div class="row">
+    <div class="work-container">
       {% for work in works %}
-        <div class="card">
-          <div class="card-body">
-            <div class="image-container">
-              <div class="image-slider">
-                {% for work_image in work.images.all %}
-                  {% with image_path=work_image.image.url|cut:'main_app/' %}
-                    <img class="card-img" src="{{ image_path }}" alt="Work Image">
-                  {% endwith %}
-                {% endfor %}
-              </div>
+        <div class="work-item">
+          <div class="image-container">
+            <div class="horizontal-scroll">
+              {% for work_image in work.images.all %}
+                {% with image_path=work_image.image.url|cut:'main_app/' %}
+                  <img src="{{ image_path }}" alt="Work Image">
+                {% endwith %}
+              {% endfor %}
             </div>
-            <a href="{% url 'workdetail' work.id %}">
-              <h5 class="card-title">{{ work.title }}</h5>
-            </a>
           </div>
+          <a href="{% url 'workdetail' work.id %}">
+            <h5>{{ work.title }}</h5>
+          </a>
         </div>
       {% endfor %}
     </div>
   </div>
+
   <style>
+    .work-container {
+      display: flex;
+      flex-wrap: nowrap;  /* Prevent items from wrapping to the next line */
+      overflow-x: auto;   /* Enable horizontal scrolling */
+    }
+
+    .work-item {
+      margin-right: 20px;  /* Adjust as needed for spacing between items */
+    }
+
     .image-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      height:50%;
-
+      overflow: hidden;    /* Hide the overflowing content */
     }
 
-    .image-slider {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
+    .horizontal-scroll {
+      display: flex;       /* Enable flexbox for the horizontal scroll */
     }
 
-    .card-img {
-      max-width: 100%;
-      max-height: 100%;
-      cursor: pointer;
-    }
-
-    .card-title {
-      text-align: center;
+    .horizontal-scroll img {
+      flex-shrink: 0;      /* Prevent images from shrinking */
+      width: 100%;         /* Ensure images take up full width */
+      margin-right: 10px;  /* Adjust as needed for spacing between images */
     }
   </style>
-
-<script>
-  const imageSlider = document.querySelectorAll('.image-slider');
-  imageSlider.forEach(slider => {
-    let imageIndex = 0;
-    const images = slider.querySelectorAll('.card-img');
-    const imageWidth = images[0].clientWidth;
-
-    slider.addEventListener('click', () => {
-      imageIndex = (imageIndex + 1) % images.length;
-      slider.style.transform = `translateX(-${imageIndex * imageWidth}px)`;
-    });
-  });
-</script>
 {% endblock %}

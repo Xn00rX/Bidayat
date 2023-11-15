@@ -1,54 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-
-
-
-
-
 <div>
   {%load static %}
   <img width="100px" height="100px" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
-</div>
-
-
-
-<form method="POST" action="{% url 'user_detail' user.id %}" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ user_form.as_p }}
-
-
-  {% if user.type == V %}
-  {{ profile_form.type }}
-  {{ profile_form.service }}
-
-  {% endif %}
-  
-
-
-  <div class="form-group">
-    <label for="id_file">File Upload:</label>
-    <input type="file" name="file" id="id_file">
   </div>
-  <p><a href="{% url 'password_reset' %}">Forgot Password?</a></p>
-  <input type="submit" class="btn" value="Update">
-  <a href="{% url 'user_detail' user.id %}">Cancel</a>
+  <form method="POST" action="{% url 'user_update' user.id %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <div class="form-group">
+      <label for="id_file">File Upload:</label>
+      <input type="file" name="image" >
+    </div>
+    <input type="submit" value="Update">
 
-</form>
-<script>
-  let typeFile = document.getElementById('id_type')
-  M.FormSelect.init(typeFile)
-  let serviceFile = document.getElementById('id_service')
-  M.FormSelect.init(serviceFile)
 
-  // typeFile.addEventListener('change', function () {
-  //   if (typeFile.value === 'Vendor') {
-  //     serviceField.style.display = 'block';
-  //   } else {
-  //     serviceField.style.display = 'none';
-  //   }
-  // });
-</script>
+  </form>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      let typeFile = document.getElementById('id_type');
+      M.FormSelect.init(typeFile);
+      
+      let serviceFile = document.getElementById('id_service');
+      M.FormSelect.init(serviceFile);
+    });
+  </script>
 {% endblock %}

@@ -16,6 +16,8 @@ urlpatterns=[
 
   # Message paths
   path('messages/',views.MessageList.as_view(),name='message_index'),
+  
+  
   path('messages/create/<int:workUser_id>/',views.MessageCreate.as_view(),name='message_create'),
   path('messages/<int:pk>/update/',views.MessageUpdate.as_view(), name = 'message_update'),
   path('messages/<int:message_id>',views.Message_detail,name='message_detail'),
@@ -24,14 +26,19 @@ urlpatterns=[
   
   
   path('detail/user_detail/<int:user_id>/', views.user_detail, name='user_detail'),
-  path('accounts/signup/',views.signup,name='signup'),
+  
+  
+  path('accounts/signup/',views.signup ,name='signup'),
+  
+  
+  
   path('change_password/', auth_views.PasswordChangeView.as_view(), name='password_change'),
   path('change_password/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
   path('users/<int:user_id>/update/', views.user_update , name='user_update' ),
   
   
-  path('accounts/customer/signup/',views.customerSignup, name='customer'),
-  path('accounts/vendor/signup/',views.vendorSignup, name='vendor'),
+  # path('accounts/customer/signup/',views.customerSignup, name='customer'),
+  # path('accounts/vendor/signup/',views.vendorSignup, name='vendor'),
   
   
   
@@ -46,8 +53,6 @@ urlpatterns=[
   path('works/<int:pk>/update', views.WorkUpdate.as_view(), name='works_update'),
   path('works/<int:pk>/delete', views.WorkDelete.as_view(), name='works_delete'),
   
-  
-     
-  path('choice/',views.choices, name='popup'),
+
   # path('/', views.categories_base, name='index'),
 ]

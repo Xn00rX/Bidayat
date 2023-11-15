@@ -417,3 +417,43 @@ label{
   font-size: 32px;
 
 }
+
+
+
+
+/*   Pop Up */
+/* Styles for the Popup Container */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    padding: 20px;
+    z-index: 1;
+}
+
+/* Styles for the Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styles for Popup Content */
+.popup-content {
+    text-align: center;
+}
+
+/* Additional Styles for Main Content */
+
