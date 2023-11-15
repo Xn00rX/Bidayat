@@ -102,24 +102,63 @@
 
 </div>
 {% if profile.type == 'V' %}
-<br><br>
-<h3>Reviews</h3>
-<form method="post" action="{% url 'review_create' profile.user.id %}">
+
+<div class="addwork-header reveal">
+  <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
+
+  <h2 class="reveal">REVIEWS</h2>
+
+</div>
+<div class="rev-form">
+<form method="post"  action="{% url 'review_create' profile.user.id %}">
   {% csrf_token %}
-  {{review_form.review.label}}
+ 
   {{review_form.review}}
-  <input type="submit" value="submit" />
+  
+  <input type="submit" value="submit" class="btn rev-btn"/>
 </form>
+</div>
 
 
 {% for review in reviews %}
-{{review.customer}}
-{%load static %}
-<img src="{% static review.customer.Profile.image|cut:'main_app/static/' %}" alt=""/>
-{{review.review}}
-<br>
+
+<div class="col s12 m8 offset-m2 l6 offset-l3">
+  <div class="card-panel grey lighten-5 z-depth-1 inbox-box">
+    <div class="row valign-wrapper">
+      <div class="col s2">
+        {% load static %}
+        <img src="{% static review.customer.Profile.image|cut:'main_app/static/' %}" class="circle responsive-img"> 
+      </div>
+      <div class="col s10">
+        <table>
+          <thead>
+            <tr>
+                <th>{{review.customer}}</th>
+                <th></th>
+                
+        
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              
+              <td>{{review.review}}</td>
+
+              </a></td>
+            </tr>
+          </tbody>
+        </table>      
+      </div>
+    </div>
+  </div>
+</div>
 {% endfor %}
+
 {% endif %}
+</div>
+
+
+
 <style>
   .container {
     margin-top: 3%;
@@ -214,6 +253,38 @@
       text-align: center;
       margin-bottom: 7%;
     }
+    .inbox-box {
+    width: 70%;
+    margin: auto;
+    margin-bottom: 2%;
+    font-size: 22px;
+    box-shadow: none;
+    border-radius: 20px;
+  }
+
+  .replybtn {
+    background-color: black;
+  }
+
+  .inbox-h {
+    margin: auto;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .rev-form {
+    width: 65%;
+    margin: auto;
+    justify-content: center;
+  }
+
+  .rev-btn {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+
+ 
 </style>
 
 
