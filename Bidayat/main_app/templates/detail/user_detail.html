@@ -21,11 +21,16 @@
 
     <a href="{% url 'user_update' user.id %}" > Edit </a>
 
-
-
-
+<br>
+    {% for work in userWork %}
+    <a href="{% url 'workdetail' work.id %}">
+      <h5 class="card-title">{{ work.title }}</h5>
+    </a>
+    {{work.description}}
+    {% endfor %}
 
   {% else %}
     <p>No profile found for this user.</p>
   {% endif %}
+
 {% endblock %}

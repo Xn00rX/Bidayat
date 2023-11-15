@@ -37,7 +37,7 @@ class CustomerSignUp(ModelForm):
 class VendorSignUp(ModelForm):
     class Meta:
         model = Profile
-        fields = ['image','service']
+        fields = ['image','service','view']
 
 class MessageForm(ModelForm):
     class Meta:
