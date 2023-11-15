@@ -13,7 +13,7 @@
 <div class="allrow">
   
   
-  <div class="card-info">
+  <div class="card-info reveal" >
     {% for user in work.users.all %}
     
     <div class="card ">
@@ -42,7 +42,7 @@
   </div>
 
   
-<div class="work-info">
+<div class="work-info reveal">
   <h1> {{ work.title }} </h1>
   
     <p>Description: {{ work.description }}</p>
@@ -117,7 +117,14 @@
   margin: auto;
 }
 
+.WorkDetail-Img {
+  height: 200px;
+  transition: transform 0.3s ease-in-out;
+}
 
+.WorkDetail-Img:hover {
+  transform: scale(3); 
+}
 
 
 

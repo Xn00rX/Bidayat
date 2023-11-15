@@ -9,43 +9,72 @@
 
   <p class="reveal">"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
 </div>
+
+<div class="alldiv">
 <div class="profile-box reveal">
-  <h2>Personal Profile</h2>
+  <h5>Personal Profile</h5>
 
   {% if profile %}
   <div>
     {%load static %}
-    <img width="50%"  src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
+    <img width="33%" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
     </div>
     <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
-    <p>Name: {{ profile.user.username }}</p>
-    <p>Email: {{ profile.user.email }}</p>
+    <p>{{ profile.user.username }}</p>
+    <p>{{ profile.user.email }}</p>
 
 
-      {% if profile.service == '10' %}
-      <div class="img-box">
-        <iframe width="600px" height="350" src="{{profile.view}}" frameborder="0"></iframe>
-      </div>
-      {% endif %}
+
 
     <button class="btn"><a href="{% url 'user_update' user.id %}" > Edit </a></button>
 
 <br>
-    <!-- {% for work in userWork %}
-    <a href="{% url 'workdetail' work.id %}">
-      <h5 class="card-title">{{ work.title }}</h5>
-    </a>
-    {{work.description}}
-    {% endfor %} -->
 
   {% else %}
     <p>No profile found for this user.</p>
   {% endif %}
   </div>
 
+  
+
+
+  <div class="side-header reveal" >
+
+    </div>
 
 
 
+  </div>
+
+
+
+
+
+
+  {% if profile.service == '10' %}
+
+  <div class="addwork-header reveal">
+    <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
+  
+    <h3 class="reveal">GET A FULL 360 VIEW TO HALLS AND VENUES</h3>
+
+  </div>
+
+  <div class="img-box">
+    <iframe width="600px" height="350" src="{{profile.view}}" frameborder="0"></iframe>
+  </div>
+  {% endif %}
+
+  <div class="addwork-header reveal">
+    <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
+  
+    <h3 class="reveal">GET TO KNOW US BETTER ...</h3>
+  
+    <p class="reveal">"Cheers to you for a job well done! <br>No one can compare to your creativity and passion, and <br>it's no surprise that you've become so successful."</p>
+  </div>
+
+
+  <div class="portfolio-h reveal"><h3>PORTFOLIO</h3></div>
 <div class="container">
 
   {% for work in userWork %}
@@ -141,17 +170,55 @@
       color: white;
       text-align: center;
       justify-content: center;
-      width: 50%;
-      margin: auto;
-      font-size: 22px;
+      width: 30%;
+      font-size: 20px;
       padding: 2.7%;
+      margin-right: 0;
+      height: 430px;
+      margin-bottom: 5%;
+      display: inline-block;
+    }
+
+    .side-header {
+      background-color: #0F202A;
+      color: white;
+      text-align: center;
+      justify-content: center;
+      width: 100%;
+      font-size: 15px;
+      padding: 2.7%;
+      margin-right: 0;
+      height: 430px;
+      margin-bottom: 5%;
+      display: inline-block;
+      background-image: url('https://i.ibb.co/ryYY2J0/photo-1519225421980-715cb0215aed.jpg');
+      background-position: center;
+      background-size: cover;
+    }
+
+    .alldiv {
+      display: flex;
+    }
+
+    .portfolio-h {
+      margin: auto;
+      justify-content: center;
+      text-align: center;
+      margin-top: 5%;
       margin-bottom: 5%;
     }
-  
 
-    
-
+    .img-box {
+      margin: auto;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 7%;
+    }
 </style>
+
+
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
    const imageSliders = document.querySelectorAll('.image-slider');

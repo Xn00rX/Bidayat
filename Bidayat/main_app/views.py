@@ -44,7 +44,7 @@ class WorkDelete(LoginRequiredMixin, DeleteView):
 
 class CategoryCreate(CreateView):
   model = Category
-  fields = ['name', 'image']
+  fields = ['name']
   def form_valid(self, form):
     form.instance.user = self.request.user
     return super().form_valid(form)
@@ -53,7 +53,7 @@ class CategoryCreate(CreateView):
 
 class CategoryUpdate(UpdateView):
   model = Category
-  fields = ['name', 'image']
+  fields = ['name']
 
 
 
