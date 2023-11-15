@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile
 from .forms import CreateUserForm , ProfileSignUp,MessageForm
-
+from itertools import chain
 # * means to import everything from the following module
 
 from .models import *      
@@ -42,7 +42,7 @@ class WorkUpdate(LoginRequiredMixin, UpdateView):
 
 class WorkDelete(LoginRequiredMixin, DeleteView):
   model = Work
-  success_url = '/works/'
+  success_url = '/'
 
 
 
@@ -91,6 +91,12 @@ class MessageList(ListView):
         s1=Messages.objects.filter(sender_id=self.request.user)
         s3 = s2 | s1 
         return s3
+  
+  # def get_queryset(self):
+  #     sender=Profile.objects.filter()
+  #     print('he')
+  #     print('sender',sender)
+  #     return sender
 
 
 class MessageCreate(CreateView):
@@ -126,6 +132,8 @@ class MessageUpdate(UpdateView):
 def Message_detail(request,message_id):
   #SELECT * FROM 'main_app_cat' WHERE id = cat_id
   message = Messages.objects.get(id=message_id)
+  message.read=True
+  message.save()
   return render(request, 'message/detail.html',{'message': message})
 
 class MessageDelete(DeleteView):
