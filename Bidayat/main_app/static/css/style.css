@@ -233,9 +233,10 @@ label{
 
 label{
   font-family: Audery-Normal;
-  
   font-size: 19px;
 }
+
+
 /* Signup Form Ends here */
 
 
@@ -560,4 +561,16 @@ label{
 
 .checkform label {
   color: black;
+}
+
+.checkform1 {
+  color: white;
+}
+
+.checkform1 label {
+  color: white;
+}
+
+.checkform1 input {
+  color: white;
 }

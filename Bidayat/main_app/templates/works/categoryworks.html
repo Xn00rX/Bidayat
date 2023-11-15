@@ -69,6 +69,7 @@
       cursor: pointer;
     }
 
+
     .card-title {
       text-align: left;
     }
@@ -91,18 +92,27 @@
 
 
   </style>
-  <script>
-    let imageSlider = document.querySelectorAll('.image-slider');
-    imageSlider.forEach(slider => {
-      let imageIndex = 0;
-      let images = slider.querySelectorAll('.card-img');
-      let imageWidth = images[0].clientWidth;
-
-      slider.addEventListener('click', () => {
-        imageIndex = (imageIndex + 1) % images.length;
-        slider.style.transform = `translateX(-${imageIndex * imageWidth}px)`;
-      });
-    });
-  </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+     const imageSliders = document.querySelectorAll('.image-slider');
+ 
+     imageSliders.forEach(slider => {
+       let imageIndex = 0;
+       const images = slider.querySelectorAll('.card-img');
+       
+       
+       if (images.length > 0) {
+         const imageWidth = images[0].clientWidth;
+ 
+         const animateImages = () => {
+           imageIndex = (imageIndex + 1) % images.length;
+           slider.style.transform = `translateX(-${imageIndex * imageWidth}px)`;
+         };
+ 
+         setInterval(animateImages, 5000);
+       }
+     });
+   });
+ </script>
 </style>
 {% endblock %}

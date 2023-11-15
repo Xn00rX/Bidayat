@@ -14,7 +14,7 @@
   {%load static %}
   <div class="profile-img"><img width="50%"  src="{% static profile.image|cut:'main_app/static/' %}" alt=""/></div>
   </div>
-  <form method="POST" action="{% url 'user_update' user.id %}" enctype="multipart/form-data">
+  <form method="POST" action="{% url 'user_update' user.id %}" enctype="multipart/form-data" class="checkform1">
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
