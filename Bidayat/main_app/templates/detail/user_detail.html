@@ -72,8 +72,9 @@
   {% endfor %}
 
 </div>
-
+{% if profile.type == 'V' %}
 <br><br>
+<h3>Reviews</h3>
 <form method="post" action="{% url 'review_create' profile.user.id %}">
   {% csrf_token %}
   {{review_form.review.label}}
@@ -84,10 +85,12 @@
 
 {% for review in reviews %}
 {{review.customer}}
+{%load static %}
+<img src="{% static review.customer.Profile.image|cut:'main_app/static/' %}" alt=""/>
 {{review.review}}
 <br>
 {% endfor %}
-
+{% endif %}
 <style>
   .container {
     margin-top: 3%;
