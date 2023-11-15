@@ -1,16 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>User Profile</h2>
+
+<div class="addwork-header reveal">
+  <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
+
+  <h2 class="reveal">We are proud of our team ...</h2>
+
+  <p class="reveal">"Cheers to you for a job well done! No one can compare to your creativity and passion, and it's no surprise that you've become so successful."</p>
+</div>
+<div class="profile-box reveal">
+  <h2>Personal Profile</h2>
 
   {% if profile %}
-    <p>Username: {{ profile.user.username }}</p>
+  <div>
+    {%load static %}
+    <img width="50%"  src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
+    </div>
+    <div class="addwork-symbol"><img src="https://i.postimg.cc/tgwQ4c6V/symbol.png" alt="logo" width="20" ></div>
+    <p>Name: {{ profile.user.username }}</p>
     <p>Email: {{ profile.user.email }}</p>
     <p> User  Type: {{profile.type}} </p>
-    <div>
-      {%load static %}
-      <img width="100px" height="100px" src="{% static profile.image|cut:'main_app/static/' %}" alt=""/>
-      </div>
+
 
       {% if profile.service == '10' %}
       <p>{{profile.view}}</p>
@@ -19,7 +30,7 @@
       </div>
       {% endif %}
 
-    <a href="{% url 'user_update' user.id %}" > Edit </a>
+    <button class="btn"><a href="{% url 'user_update' user.id %}" > Edit </a></button>
 
 
 
@@ -28,4 +39,21 @@
   {% else %}
     <p>No profile found for this user.</p>
   {% endif %}
+  </div>
+
+
+
+  <style>
+    .profile-box {
+      background-color: #0F202A;
+      color: white;
+      text-align: center;
+      justify-content: center;
+      width: 50%;
+      margin: auto;
+      font-size: 22px;
+      padding: 2.7%;
+      margin-bottom: 5%;
+    }
+  </style>
 {% endblock %}

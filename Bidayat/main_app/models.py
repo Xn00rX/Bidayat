@@ -47,8 +47,6 @@ class Profile(models.Model):
 
 
 # Create your models here.
-
-
 class Category(models.Model):
   name = models.CharField(max_length=50)  
   image = models.ImageField(upload_to = "main_app/static/uploads", default="")
@@ -78,3 +76,5 @@ class Work(models.Model):
 class WorkImage(models.Model):
     work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='main_app/static/uploads') 
+
+
