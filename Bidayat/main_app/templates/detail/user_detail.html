@@ -25,9 +25,9 @@
 
 
 
-
+{% if user.id == profile.user.id %}
     <button class="btn"><a href="{% url 'user_update' user.id %}" > Edit </a></button>
-
+{% endif %}
 <br>
 
   {% else %}
@@ -74,8 +74,8 @@
   </div>
 
 
-  <div class="portfolio-h reveal"><h3>PORTFOLIO</h3></div>
-<div class="container">
+  <div class="portfolio-h reveal "><h3>PORTFOLIO</h3></div>
+<div class="container rev-new">
 
   {% for work in userWork %}
  
@@ -283,7 +283,10 @@
     padding-top: 0;
   }
 
-
+  .rev-new {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
  
 </style>
 
